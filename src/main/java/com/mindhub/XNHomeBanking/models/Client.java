@@ -1,9 +1,9 @@
 package com.mindhub.XNHomeBanking.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 //JPA = Java Persistance API
 //Interfaz = Contrato || Una serie de lineamientios que debemos respetar.
 
@@ -15,23 +15,34 @@ public class Client {
     private Long id;
 
     //Hace columnas de las de base de datos sean las propiedades.
-    private String name, lastname, email;
+    private String firstname, lastname, email;
+
+    //Relación de Uno a Muchos, un cliente puede tener muchas cuentas
+    @OneToMany(mappedBy = "client" , fetch = FetchType.EAGER)
+    private List<Account> listAccount = new ArrayList<>();
+
+
 
     public Client() {
     }
 
-    public Client(String name, String lastname, String email) {
-        this.name = name;
+    public Client(String firstname, String lastname, String email) {
+        this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastname() {
@@ -50,13 +61,25 @@ public class Client {
         this.email = email;
     }
 
+    public List<Account> getListAccount() {
+        return listAccount;
+    }
+
+    public void addAccount(Account account){
+        account.setClient(this);
+        this.listAccount.add(account);
+    }
+
+
     @Override
     public String toString() {
         return "client{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
-}
+
+
+}// Aca Termina la clase Client
