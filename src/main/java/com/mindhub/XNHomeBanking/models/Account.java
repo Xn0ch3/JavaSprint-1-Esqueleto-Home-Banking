@@ -3,7 +3,9 @@ package com.mindhub.XNHomeBanking.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -17,19 +19,23 @@ public class Account {
     private LocalDate creationDate;
 
     private Double balance;
+    //Creamos la lista de tipo Set (HashSet Construye un conjunto nuevo y vacío;)
+    //Creamos la Relación Uno-A-Muchos y la promesa de los datos con Fecht tipo EAGER para traer todos los datos.
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    private Set<Transaction> transactionSet = new HashSet<>();
 
 @ManyToOne
     private Client client;
-
+    //Constructor Vacío de Account.
     public Account() {
     }
-
+    //Constructor Parametrizado Account
     public Account(String number, LocalDate creationDate, Double balance) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
     }
-
+    //Getters y Setters del Constructor Parametrizado.
     public Long getId() {
         return id;
     }
@@ -68,6 +74,20 @@ public class Account {
         this.client = client;
     }
 
+    public Set<Transaction> getTransactionSet() {
+        return transactionSet;
+    }
+
+    public void setTransactionSet(Set<Transaction> transactionSet) {
+        this.transactionSet = transactionSet;
+    }
+
+    public void addTransaction(Transaction transaction){
+        transaction.setAccount(this);
+        this.transactionSet.add(transaction);
+    }
+
+    //ToString para imprimir los datos en consola.
     @Override
     public String toString() {
         return "Account{" +
