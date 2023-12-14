@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="../images/banking-serviceWhite.png" type="image/x-icon">
+    <link rel="stylesheet" href="../style.css">
+    <title>Your Account</title>
+</head>
+
+<body>
+    <header>
+        <button class="flex w-full items-center justify-center">
+            <img class="h-[3rem] w-[3rem] justify-end" src="../images/acceso.png" alt="images-Acceso">
+        </button>
+
+        <nav class="flex flex-wrap justify-center text-center items-center justify-around p-3">
+            <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="#">Account</a>
+            <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="#">Cards</a>
+            <div class="flex items-center">
+                <img class="h-[5rem] w-[5rem]" src="../images/banking-serviceWhite.png" alt="LogoHome banking-serviceWhite">
+                <h1 class="font-extrabold text-3xl">Bank MH</h1>
+            </div>
+            <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="#">Loans</a>
+            <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="#">Transaction</a>
+        </nav>
+    </header>
+
+    <main class="min-h-[80vh] bg-black">
+        <div id="app">
+            <h2 class="text-[50px] text-center text-white">Welcome  {{clients.firstname}}!</h2>
+            <div class="flex flex-wrap  ">
+                <img class="w-1/2 h-1/4" src="../images/images.jpg" alt="bannerBienvenida">
+                <img class="w-1/2 h-1/4" src="../images/BannerTransferenciaMovil.png" alt="">
+            </div>
+            <div class="flex flex-wrap gap-10 justify-center m-5">
+                <template v-if="listAccounts.length > 0" v-for="account in listAccounts">
+                    <div class="bg-white w-[400px] h-[250px] p-10 rounded-lg shadow-2xl shadow-black  gap-10  justify-around items-center text-center  ">
+                        <h2 class="text-black text-lg">Numero de cuentas: {{account.number}} </h2>
+                        <div class="flex flex-col justify-center gap-5">
+                            <h2 class="text-black text-lg">Monto: </h2>
+                            <div class="bg-grey rounded-lg">
+                                <h2 class="text-[30px] text-center text-black">{{formatBudget(account.balance)}}</h2>
+                            </div>
+                        </div>
+                        <h2 class="text-black">Fecha de creacion: {{account.creationDate}} </h2>
+                        <a class="bg-black text-white p-2 rounded-lg" v-bind:href= "'../pages/account.html?id=' + account.id">Detalles de Transaccion</a>
+                    </div>
+                </template>
+                <div class=" gap-3 p-5 flex flex-col "  v-if="loans.length> 0">
+                    <h2 class="text-2xl font-extrabold bg-white rounded-lg p-5 m-5" >Prestamos</h2>
+                    <table class="border border-black w-1/2 h-1/4 border-solid-5 p-10 rounded-lg shadow-md bg-white gap-10 text-center ">
+                        <thead>
+                            <tr>
+                                <th class="border-b border-black">Name</th>
+                                <th class="border-b border-black">Amount</th>
+                                <th class="border-b border-black">Payment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-for="loans in loans">
+                                <tr class="border-b border-gray-300">
+                                    <td class="py-2">{{loans.name}}</td>
+                                    <td class="py-2">{{formatBudget(loans.amount)}}</td>
+                                    <td class="py-2">{{loans.payment}}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                <div v-else >
+                    <h2 class="text-2xl font-extrabold bg-white rounded-lg p-5 m-5">Does Not Have Current Loans</h2>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white text-black flex flex-wrap justify-center text-center items-center justify-around p-3 ">
+        <div class="flex justify-around text-center items-center gap-10">
+            <p>© 2023 Todos los derechos reservados</p>
+            <div class="flex flex-wrap justify-center text-center items-center justify-around gap-10 ">
+                <img class="h-[3rem] w-[3rem]" src="../images/instagram.png" alt="instagram">
+                <img class="h-[3rem] w-[3rem]" src="../images/facebook.png" alt="facebook">
+                <img class="h-[3rem] w-[3rem]" src="../images/whatsapp.png" alt="whatsapp">
+            </div>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../tailwind.config.js"></script>
+    <script src="../JavaScript/accounts.js"></script>
+</body>
+
+</html>
