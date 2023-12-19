@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
+//RestController marca la clase como un controlador donde cada método devuelve un objeto de dominio en lugar de una vista.
 @RestController
-@RequestMapping("/api/")
+//RequestMapping se utiliza para asignar solicitudes web a clases de controlador específicas y/o métodos de controlador.
+//Request = Petición, Mapping = asociar. //Asocia una petición.
+@RequestMapping("/api")
 public class AccountController {
-
+//Autowired es una anotación utilizada en Spring Boot para habilitar la inyección automática de dependencias.
     @Autowired
     private AccountRepositories accountRepositories;
 
@@ -29,7 +31,7 @@ public class AccountController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("accounts/{id}/transactions")
+    @GetMapping("/accounts/{id}/transactions")
     public List<TransactionDTO> getOneAccount(@PathVariable Long id){
      return accountRepositories.findById(id)
                 .map(account -> account.getTransactionSet().stream()
@@ -38,8 +40,5 @@ public class AccountController {
                 .orElse(Collections.emptyList());
 
     }
-
-    
-
 
 }//Aca termina la class AccountController.

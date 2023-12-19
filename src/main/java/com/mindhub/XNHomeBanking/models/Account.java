@@ -19,13 +19,16 @@ public class Account {
     private LocalDate creationDate;
 
     private Double balance;
-    //Creamos la lista de tipo Set (HashSet Construye un conjunto nuevo y vacío;)
+
     //Creamos la Relación Uno-A-Muchos y la promesa de los datos con Fecht tipo EAGER para traer todos los datos.
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    //Creamos la lista de tipo Set (HashSet Construye un conjunto nuevo y vacío;)
     private Set<Transaction> transactionSet = new HashSet<>();
-//Relaciones  Account/Client
-@ManyToOne
+
+    //Relaciones  Account/Client
+    @ManyToOne
     private Client client;
+
     //Constructor Vacío de Account.
     public Account() {
     }

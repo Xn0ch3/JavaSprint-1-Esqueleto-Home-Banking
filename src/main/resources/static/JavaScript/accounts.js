@@ -5,6 +5,7 @@ const app = createApp({
         return {
             clients: [],
             listAccounts: [],
+            loans:[]
 
         }
     },
@@ -17,9 +18,11 @@ const app = createApp({
             axios.get("/api/clients/1")
             .then(response => {
                 this.clients = response.data
-                console.log(this.clients)
-                this.listAccounts = response.data.listAccount
-                console.log(this.listAccounts)
+                console.log("Clients",this.clients)
+                this.listAccounts = response.data.accounts
+                console.log("listAccount",this.listAccounts)
+                this.loans = response.data.clientLoans
+                console.log("Loans",this.loans)
             })
             .catch(error => console.log(error))
         },

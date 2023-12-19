@@ -9,14 +9,14 @@ import java.util.Set;
 //JPA = Java Persistance API
 //Interfaz = Contrato || Una serie de lineamientios que debemos respetar.
 
-@Entity //Crea una tabla en la base de datos, con los datos de la clase.
+@Entity //Crea una tabla en la base de datos, con los datos de la clase, Hace columnas de las de base de datos sean las propiedades
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //Hace columnas de las de base de datos sean las propiedades.
+    //.
     private String firstname, lastname, email;
 
     //Relación de Uno a Muchos, un cliente puede tener muchas cuentas
@@ -27,7 +27,9 @@ public class Client {
     @OneToMany(mappedBy = "client" , fetch = FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
 
-
+    //Relacion de OneToMany un cliente puede tener varias tarjetas.
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<Card> cards = new HashSet<>();
 
     public Client() {
     }
@@ -83,6 +85,9 @@ public class Client {
         this.clientLoans = clientLoans;
     }
 
+    public Set<Card> getCards() {
+        return cards;
+    }
 
     //Método para agregar Account(cuentas) a Cliente(clientes)
     public void addAccount(Account account){
@@ -96,7 +101,13 @@ public class Client {
         this.clientLoans.add(clientLoan);
     }
 
+    //Método para Agregar Cards a Clients.
+    public void addCard(Card card){
+        card.setClient(this);
+        this.cards.add(card);
+    }
 
+    //ToString
     @Override
     public String toString() {
         return "client{" +

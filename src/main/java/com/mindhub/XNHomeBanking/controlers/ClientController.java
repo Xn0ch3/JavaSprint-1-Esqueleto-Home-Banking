@@ -3,6 +3,7 @@ package com.mindhub.XNHomeBanking.controlers;
 import com.mindhub.XNHomeBanking.dto.ClientDTO;
 import com.mindhub.XNHomeBanking.models.Client;
 import com.mindhub.XNHomeBanking.repositories.ClientsRepositories;
+import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +14,13 @@ import java.util.stream.Collectors;
 
 //Controlador, escucha y responde peticiones.
 @RestController
-@RequestMapping("/api/clients")
+@RequestMapping("/api")
 public class ClientController {
 
-    //Inyección de Dependencias
+    // de DependenciasInyección
     @Autowired
     private ClientsRepositories clientsRepositories;
+    //Servlet (microprograma que responde peticiones específicas.)
     @RequestMapping("/all")
     public List<ClientDTO> getAllClients(){
         return clientsRepositories.findAll()
@@ -26,7 +28,8 @@ public class ClientController {
                 .map(client -> new ClientDTO(client))
                 .collect(Collectors.toList());
     }
-    @RequestMapping("/{id}")
+    //Servlet (microprograma que responde peticiones específicas.)
+    @RequestMapping("/clients/{id}")
     public ClientDTO getOneClient(@PathVariable Long id){
         return new ClientDTO(clientsRepositories.findById(id).orElse(null));
     }
