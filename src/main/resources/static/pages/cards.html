@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="../images/banking-serviceWhite.png" type="image/x-icon">
+    <link rel="stylesheet" href="../style.css">
+    <title>Your Account</title>
+</head>
+
+<body>
+    <header class="bg-blue-700">
+        <button class="flex w-full items-center justify-center ">
+            <img class="h-[3rem] w-[3rem] justify-end bg-white"  src="../images/acceso.png" alt="images-Acceso">
+        </button>
+
+        <nav class="flex flex-wrap justify-center opacity-100  text-center items-center justify-around p-3">
+            <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="./accounts.html">Account</a>
+            <a class="h-[3rem] w-[10rem] bg-white text-black border-[3px] border-black  p-3 rounded-lg text-lg "
+                href="./cards.html">Cards</a>
+            <div class="flex items-center bg-white rounded-lg">
+                <img class="h-[5rem] w-[5rem]" src="../images/banking-serviceWhite.png"
+                    alt="LogoHome banking-serviceWhite">
+                <h1 class="font-extrabold text-3xl">Bank MH</h1>
+            </div>
+            <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="#">Loans</a>
+            <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="#">Transaction</a>
+        </nav>
+
+        <button   class="flex w-full items-center justify-center">
+            <img v-on:click="logout" class="h-[3rem] w-[3rem] justify-end bg-white" src="../images/cerrar-sesion.png" alt="closeSesion">
+        </button>
+
+    </header>
+
+    <main class="min-h-[80vh] justify-center items-center">
+        <div id="app">
+            <template v-if="cards.length > 0" v-for="card of cards">
+                <div id="main"  v-if="card.cardColor === 'GOLD'" class=" flex items-center justify-around  h-[20rem] w-full gap-10 ">
+                    <div id="topography" class="h-full w-full flex items-center justify-center">
+                        <div id="credit-card-container" class="h-56 w-96 rounded-2xl bg-gradient-to-tr from-yellow-500 to-blue-700 group shadow-xl text-blue-200 tracking-wide 
+                            font-semibold transform transition duration-500 ease-in-out rotate-0 scale-100 hover:rotate-6 hover:scale-105 hover:shadow-2xl">
+                            <div id="dots-texture" class="h-full w-full relative rounded-2xl">
+                                <div id="credit-card-body"
+                                    class="absolute w-full h-full grid grid-flow-row grid-cols-3 grid-rows-7">
+                                    <div class="row-span-1 col-span-3 flex flew-wrap content-center">
+                                        <span
+                                            class="text-lg pl-6 pt-6 w-full font-thin inline-block align-text-top text-blue-300">MindHub
+                                            Bank</span>
+                                        <span class="text-2xl font-bold italic text-right pr-6 pt-6 text-blue-300">VISA GOLD
+                                            {{card.cardType}}</span>
+                                    </div>
+
+                                    <div id="credit-card-num"
+                                        class="px-6 tracking-widest row-span-3 col-span-3 w-full flex flex-wrap content-center text-blue-200">
+                                        <div contenteditable class="text-sm">{{card.number}}</div>
+                                    </div>
+
+                                    <div id=""
+                                        class="col-span-3 row-span-2 px-6 bg-gray-500 bg-opacity-20 rounded-b-2xl border-t-2 border-indigo-600 w-full 
+                                        grid grid-cols-3 grid-rows-2 w-full text-gray-50 text-opacity-70">
+                                        <div id="credit-card-name" class="tracking-widest col-span-2 self-end w-full">
+                                            {{card.cardHolder}}</div>
+                                        <div id="credit-card-date" class="col-span-3 self-start text-sm">
+                                            "Since"{{card.fromDate}}" Thru "{{card.thrueDate}}       CVV {{card.cvv}} </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <template v-if="cards.length > 0" v-for="card of cards">
+                <div id="main" v-if="card.cardColor === 'SILVER'"  class=" flex items-center justify-around  h-[20rem] w-full gap-10 ">
+                    <div id="topography" class="h-full w-full flex items-center justify-center">
+                        <div  id="credit-card-container" class="h-56 w-96 rounded-2xl bg-gradient-to-tr from-gray-500 to-blue-700 group shadow-xl text-blue-200 tracking-wide 
+                            font-semibold transform transition duration-500 ease-in-out rotate-0 scale-100 hover:rotate-6 hover:scale-105 hover:shadow-2xl">
+                            <div id="dots-texture" class="h-full w-full relative rounded-2xl">
+                                <div id="credit-card-body"
+                                    class="absolute w-full h-full grid grid-flow-row grid-cols-3 grid-rows-7">
+                                    <div class="row-span-1 col-span-3 flex flew-wrap content-center">
+                                        <span
+                                            class="text-lg pl-6 pt-6 w-full font-thin inline-block align-text-top text-blue-300">MindHub
+                                            Bank</span>
+                                        <span class="text-2xl font-bold italic text-right pr-6 pt-6 text-blue-300">VISA SILVER
+                                            {{card.cardType}}</span>
+                                    </div>
+
+                                    <div id="credit-card-num"
+                                        class="px-6 tracking-widest row-span-3 col-span-3 w-full flex flex-wrap content-center text-blue-200">
+                                        <div contenteditable class="text-sm">{{card.number}}</div>
+                                    </div>
+
+                                    <div id=""
+                                        class="col-span-3 row-span-2 px-6 bg-gray-500 bg-opacity-20 rounded-b-2xl border-t-2 border-indigo-600 w-full 
+                                        grid grid-cols-3 grid-rows-2 w-full text-gray-50 text-opacity-70">
+                                        <div id="credit-card-name" class="tracking-widest col-span-2 self-end w-full">
+                                            {{card.cardHolder}}</div>
+                                        <div id="credit-card-date" class="col-span-3 self-start text-sm">
+                                            "Since"{{card.fromDate}}" Thru "{{card.thrueDate}}       CVV {{card.cvv}} </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <template v-if="cards.length > 0" v-for="card of cards">
+                <div id="main" v-if="card.cardColor === 'TITANIUM'"  class=" flex items-center justify-around  h-[20rem] w-full gap-10 ">
+                    <div id="topography" class="h-full w-full flex items-center justify-center">
+                        <div id="credit-card-container" class="h-56 w-96 rounded-2xl bg-gradient-to-tr from-gray-900 to-blue-700 group shadow-xl text-blue-200 tracking-wide 
+                            font-semibold transform transition duration-500 ease-in-out rotate-0 scale-100 hover:rotate-6 hover:scale-105 hover:shadow-2xl">
+                            <div id="dots-texture" class="h-full w-full relative rounded-2xl">
+                                <div id="credit-card-body"
+                                    class="absolute w-full h-full grid grid-flow-row grid-cols-3 grid-rows-7">
+                                    <div class="row-span-1 col-span-3 flex flew-wrap content-center">
+                                        <span
+                                            class="text-lg pl-6 pt-6 w-full font-thin inline-block align-text-top text-blue-300">MindHub
+                                            Bank</span>
+                                        <span class="text-2xl font-bold italic text-right pr-6 pt-6 text-blue-300">VISA TITANIUM
+                                            {{card.cardType}}</span>
+                                    </div>
+
+                                    <div id="credit-card-num"
+                                        class="px-6 tracking-widest row-span-3 col-span-3 w-full flex flex-wrap content-center text-blue-200">
+                                        <div contenteditable class="text-sm">{{card.number}}</div>
+                                    </div>
+
+                                    <div id=""
+                                        class="col-span-3 row-span-2 px-6 bg-gray-500 bg-opacity-20 rounded-b-2xl border-t-2 border-indigo-600 w-full 
+                                        grid grid-cols-3 grid-rows-2 w-full text-gray-50 text-opacity-70">
+                                        <div id="credit-card-name" class="tracking-widest col-span-2 self-end w-full">
+                                            {{card.cardHolder}}</div>
+                                        <div id="credit-card-date" class="col-span-3 self-start text-sm">
+                                            "Since"{{card.fromDate}}" Thru "{{card.thrueDate}}       CVV {{card.cvv}} </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            
+        </div>
+
+    </main>
+
+    <footer class="bg-blue-700 text-white flex flex-wrap justify-center text-center items-center justify-around p-3 ">
+        <div class="flex justify-around text-center items-center gap-10">
+            <p>© Cohort-52 Xavier Nochelli 2023 Todos los derechos reservados</p>
+            <div class="flex flex-wrap justify-center text-center items-center justify-around gap-10 ">
+                <img class="h-[3rem] w-[3rem]" src="../images/instagram.png" alt="instagram">
+                <img class="h-[3rem] w-[3rem]" src="../images/facebook.png" alt="facebook">
+                <img class="h-[3rem] w-[3rem]" src="../images/whatsapp.png" alt="whatsapp">
+            </div>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../tailwind.config.js"></script>
+    <script src="../JavaScript/cards.js"></script>
+</body>
+
+</html>

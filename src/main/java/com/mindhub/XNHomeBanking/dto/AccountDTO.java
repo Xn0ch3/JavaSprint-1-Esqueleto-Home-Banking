@@ -3,10 +3,12 @@ package com.mindhub.XNHomeBanking.dto;
 import com.mindhub.XNHomeBanking.models.Account;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AccountDTO {
 
-    private Long id;
+    private long id;
 
     private String number;
 
@@ -14,22 +16,30 @@ public class AccountDTO {
 
     private Double balance;
 
+    private List<TransactionDTO> transaction;
+
     public AccountDTO() {
     }
 
     public AccountDTO(Account account){
 
-        id = account.getId();
+        this.id = account.getId();
 
-        number = account.getNumber();
+        this.number = account.getNumber();
 
-        creationDate = account.getCreationDate();
+        this.creationDate = account.getCreationDate();
 
-        balance = account.getBalance();
+        this.balance = account.getBalance();
+
+        this.transaction = account.getTransactionSet().stream().map(transaction -> new TransactionDTO(transaction)).collect(Collectors.toList());
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
+    }
+
+    public List<TransactionDTO> getTransaction() {
+        return transaction;
     }
 
     public String getNumber() {
