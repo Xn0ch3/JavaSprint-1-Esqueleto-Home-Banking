@@ -2,7 +2,7 @@ const app = Vue.createApp({
     data() {
         return {
             data: [],
-            name: "",
+            firstname: "",
             lastname: "",
             email: "",
             password: "",
@@ -14,8 +14,7 @@ const app = Vue.createApp({
         
     },
     methods: {
-        signin(event){
-            event.preventDefault()
+        signin(){
             axios.post("/api/login?email=" + this.email + "&password=" + this.password)
             .then(response => {
                 console.log("response", response)
@@ -26,11 +25,11 @@ const app = Vue.createApp({
             .catch(error => console.log(error))
         },
         signup(){
-            axios.post("/api/clients?firstName=" + this.firstName + "&lastName=" + this.lastName + "&email=" + this.email + "&password=" + this.password)
+            axios.post("/api/clients?firstname=" + this.firstname + "&lastname=" + this.lastname + "&email=" + this.email + "&password=" + this.password)
                 .then(response => {
                     console.log("registered" + this.email);
                     console.log(response.data);
-                    this.login();   
+                    this.signin();   
                 })
                 .catch(error => console.log(error))
         },
@@ -45,6 +44,15 @@ const app = Vue.createApp({
             .catch(error => console.log(error))
         },
 
+        getFirstname(event){
+            this.firstname = event.target.value
+            console.log("firstname", this.firstname)
+        },
+        getLastname(event){
+            this.lastname = event.target.value
+            console.log("lastname", this.lastname)
+        },
+
         getEmail(event){
             this.email = event.target.value
             console.log("Email", this.email)
@@ -54,6 +62,7 @@ const app = Vue.createApp({
             this.password = event.target.value
             console.log("password" , this.password)
         },
+    
 
         togglePassword(){
             const x = document.getElementById("passwordSignIn");

@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="shortcut icon" href="../images/banking-serviceWhite.png" type="image/x-icon">
-    <link rel="stylesheet" href="../style.css">
-    <title>Your Account</title>
-</head>
-
-<body>
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="shortcut icon" href="../images/banking-serviceWhite.png" type="image/x-icon">
+        <link rel="stylesheet" href="../style.css">
+        <title>Your Account</title>
+    </head>
+    
+    <body>
+    <div id="app">
     <header class="bg-blue-700">
         <button class="flex w-full items-center justify-center ">
             <img class="h-[3rem] w-[3rem] justify-end bg-white"  src="../images/acceso.png" alt="images-Acceso">
         </button>
-
+        
         <nav class="flex flex-wrap justify-center opacity-100  text-center items-center justify-around p-3">
             <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="./accounts.html">Account</a>
             <a class="h-[3rem] w-[10rem] bg-white text-black border-[3px] border-black  p-3 rounded-lg text-lg "
-                href="./cards.html">Cards</a>
+            href="./cards.html">Cards</a>
             <div class="flex items-center bg-white rounded-lg">
                 <img class="h-[5rem] w-[5rem]" src="../images/banking-serviceWhite.png"
                     alt="LogoHome banking-serviceWhite">
-                <h1 class="font-extrabold text-3xl">Bank MH</h1>
-            </div>
+                    <h1 class="font-extrabold text-3xl">Bank MH</h1>
+                </div>
             <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="#">Loans</a>
             <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="#">Transaction</a>
         </nav>
 
         <button   class="flex w-full items-center justify-center">
-            <img v-on:click="logout" class="h-[3rem] w-[3rem] justify-end bg-white" src="../images/cerrar-sesion.png" alt="closeSesion">
+            <img v-on:click="logout()" class="h-[3rem] w-[3rem] justify-end bg-white" src="../images/cerrar-sesion.png" alt="closeSesion">
         </button>
 
     </header>
 
     <main class="min-h-[80vh] justify-center items-center">
-        <div id="app">
             <template v-if="cards.length > 0" v-for="card of cards">
                 <div id="main"  v-if="card.cardColor === 'GOLD'" class=" flex items-center justify-around  h-[20rem] w-full gap-10 ">
                     <div id="topography" class="h-full w-full flex items-center justify-center">

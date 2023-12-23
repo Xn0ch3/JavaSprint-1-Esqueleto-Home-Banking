@@ -96,28 +96,28 @@
                                 <button v-on:click="closeModal()" class="w-10 h-10 mt-1 mr-2 z-40 absolute top-0 right-0">
                                     <img src="./images/cerrar-simbolo-de-boton-circular.png" class="bg-beige p-1 rounded-lg" alt="cerrarModal">
                                 </button>
-                                <form class="gap-5" action="#">
+                                <form @submit.prevent="signup"  class="gap-5" action="#">
                                     <h1>Create Account</h1>
                                     <span>or use your email for registration</span>
                                     <label for="name">Name</label>
-                                    <input type="text" id="name" placeholder="Name" />
+                                    <input @input="getFirstname"  type="text" id="name" placeholder="Name" />
                                     <label for="lastName">Last Name</label>
-                                    <input type="text" id="lastName" placeholder="Last Name" />
+                                    <input @input="getLastname"  type="text" id="lastName" placeholder="Last Name" />
                                     <label for="emailSignup">Email</label>
-                                    <input type="email" id="emailSignup" placeholder="Email" />
+                                    <input @input="getEmail"  type="email" id="emailSignup" placeholder="Email" />
                                     <label for="passwordSignup">Password</label>
                                     <div class="flex">
-                                        <input type="password" id="passwordSignup" placeholder="Password" />
+                                        <input @input="getPassword"  type="password" id="passwordSignup" placeholder="Password" />
                                         <i class="far fa-eye cursor-pointer" @click="togglePassword()" id="togglePassword"></i>
                                     </div>
-                                    <button type="submit"  @click="signup">Sign Up</button>
+                                    <button type="submit">Sign Up</button>
                                 </form>
                             </div>
                             <div class="form-container sign-in-container">
                                 <button v-on:click="closeModal()" class="w-10 h-10 mt-1 mr-2 z-40 absolute top-0 right-0">
                                     <img src="./images/cerrar-simbolo-de-boton-circular.png" class="bg-beige p-1 rounded-lg" alt="cerrarModal">
                                 </button>
-                                <form class="gap-5" action="#">
+                                <form @submit.prevent="signin"  class="gap-5">
                                     <h1>Sign in</h1>
                                     <span>or use your account</span>
                                     <label for="emailSignIn">Email</label>
@@ -128,7 +128,7 @@
                                     <i class="far fa-eye cursor-pointer" @click="togglePassword()" id="togglePassword"></i>
                                     </div>
                                     <a href="#">Forgot your password?</a>
-                                    <button type="submit"  @click="signin">Sign In</button>
+                                    <button type="submit">Sign In</button>
                                 </form>
                             </div>
                             <div class="overlay-container">

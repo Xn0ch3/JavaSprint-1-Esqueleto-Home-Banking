@@ -17,10 +17,10 @@ import org.springframework.security.web.authentication.logout.HttpStatusReturnin
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
+        //Modificando las reglas de la seguridad de la app. Como se hace el Login, quienes son ADMIN & CLIENTS.
         http.authorizeHttpRequests(auth ->
                 auth.requestMatchers("/index.html", "/style.css", "/index.js" , "tailwind.config.js", "/images/**").permitAll()
-                        .requestMatchers("/pages/**" , "/JavaScript/**" ,"/pages/cards.html","/api/clients/1", "/pages/accounts.html" ,"/api/accounts/1/transactions","/api/accounts/2/transactions", "/api/clients/current").hasAuthority("CLIENT")
+                        .requestMatchers("/pages/**" , "/JavaScript/**" ,"/pages/*/cards.html","/api/clients/*", "/pages/accounts.html" ,"/api/accounts/*/transactions", "/api/clients/current").hasAuthority("CLIENT")
                         .requestMatchers("/admin/**","/pages/**", "/JavaScript/**", "/h2-console").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/clients" , "/api/login").permitAll()
                         .anyRequest().denyAll());
@@ -47,8 +47,9 @@ public class SecurityConfig {
         http.logout(httpSecurityLogoutConfigurer ->
                 httpSecurityLogoutConfigurer
                         .logoutUrl("/api/logout")
-                        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
-                        .deleteCookies("JSESSIONID"));
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()));
+
 
         http.rememberMe(Customizer.withDefaults());
 

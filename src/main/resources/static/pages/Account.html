@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="shortcut icon" href="../images/banking-serviceWhite.png" type="image/x-icon">
-    <link rel="stylesheet" href="../style.css">
-    <title>Your Account</title>
-</head>
-
-<body>
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="shortcut icon" href="../images/banking-serviceWhite.png" type="image/x-icon">
+        <link rel="stylesheet" href="../style.css">
+        <title>Your Account</title>
+    </head>
+    
+    <body>
+    <div id="app">
     <header class="bg-blue-700">
 
         <button class="flex w-full items-center justify-center">
@@ -29,13 +30,12 @@
         </nav>
 
         <button  class="flex w-full items-center justify-center">
-            <img v-on:click="logout" class="h-[3rem] w-[3rem] justify-end bg-white" src="../images/cerrar-sesion.png" alt="closeSesion">
+            <img v-on:click="logout()" class="h-[3rem] w-[3rem] justify-end bg-white" src="../images/cerrar-sesion.png" alt="closeSesion">
         </button>
 
     </header>
 
     <main class="min-h-[80vh]">
-        <div id="app">
             <h2 class="text-[50px] text-center text-white">Welcome {{clients.firstname}}!</h2>
             <div class="flex flex-wrap">
                 <img class="w-1/2 h-[15rem] bg-cover" src="../images/bannerAcount2.1.jpg" alt="welcomeBanner1">

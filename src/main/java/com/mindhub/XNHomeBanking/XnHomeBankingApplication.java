@@ -34,10 +34,13 @@ public class  XnHomeBankingApplication {
 		return args -> {
 			Client cliente1 = new Client("Melba","Morel","Melba@mindhub.com", passwordEncoder.encode("melba2023"));
 			Client cliente2 = new Client("Xavier", "Nochelli", "Xavier@mindhub.com",passwordEncoder.encode("xavier2023"));;
-			cliente2.setRole(RoleType.ADMIN);
+			Client admin = new Client("Alvaro", "Orquera","Alvaro@mindhub.com", passwordEncoder.encode("alvaro2023"));
+			admin.setRole(RoleType.ADMIN);
+
 			System.out.println(cliente1); //sout sin guardar id = null
 			clientsRepositories.save(cliente1);
 			clientsRepositories.save(cliente2);
+			clientsRepositories.save(admin);
 
 
 			Account cuenta1 = new Account("VIN-001", LocalDate.now(), 5000.00);
@@ -91,8 +94,8 @@ public class  XnHomeBankingApplication {
 			//Se guardan las Transacciones en las cuentas correspondientes.
 			cuenta3.addTransaction(transaction5);
 			cuenta3.addTransaction(transaction6);
-			cuenta3.addTransaction(transaction7);
-			cuenta3.addTransaction(transaction8);
+			cuenta4.addTransaction(transaction7);
+			cuenta4.addTransaction(transaction8);
 			//Se guardan las Transacciones en el Repositorio de Transacciones.
 			transactionRepositories.save(transaction5);
 			transactionRepositories.save(transaction6);

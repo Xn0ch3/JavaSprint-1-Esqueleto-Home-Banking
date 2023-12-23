@@ -23,14 +23,14 @@ const app = createApp({
             axios.get("/api/accounts/" + this.id + "/transactions")
                 .then(response => {
                     this.transactions = response.data;
-                    console.log("caracol" , this.transactions);
+                    console.log("Transactions" , this.transactions);
                 })
                 .catch(error => {
                     console.error("Error fetching data:", error);
                 });
         },
         loadData() {
-            axios.get("/api/clients/1")
+            axios.get("/api/clients/current")
                 .then(response => {
                     this.clients = response.data
                     console.log("Clientes", this.clients)
@@ -50,14 +50,13 @@ const app = createApp({
                 });
             }
         },
-        logout(){
+        logout() {
             axios.post("/api/logout")
                 .then(response => {
-                    console.log(response)
-                    if (response.status == 200) {
-                        window.location.href = "./login.html"
-                    }
+                    console.log("LogOut", response)
+                    window.location.href = "/index.html"
                 })
         },
+
     }// Aca termina Methods
 }).mount('#app')

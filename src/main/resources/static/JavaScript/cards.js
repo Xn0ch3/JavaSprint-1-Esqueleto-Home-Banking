@@ -16,7 +16,7 @@ const app = createApp({
     },
     methods: {
         loadData() {
-            axios.get("/api/clients/1")
+            axios.get("/api/clients/current")
                 .then(response => {
                     this.cards = response.data.cardDTOS
                     console.log("cards", this.cards)
@@ -35,14 +35,13 @@ const app = createApp({
             }
         },
 
-        logout(){
+        logout() {
             axios.post("/api/logout")
                 .then(response => {
-                    console.log(response)
-                    if (response.status == 200) {
-                        window.location.href = "./login.html"
-                    }
+                    console.log("LogOut", response)
+                    window.location.href = "/index.html"
                 })
         },
+
     }// Aca termina Methods
 }).mount('#app')
