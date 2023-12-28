@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
-    //Se inyecta Repositorio.
+    //Se inyecta la Interfaz que se comunica con la DB,
     @Autowired
     ClientsRepositories clientsRepositories;
 
@@ -23,12 +23,15 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
     public void init(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.userDetailsService(inputName-> {
-
+            //Es una variable de Cliente, que devuelve un cliente mediante la búsqueda de Email, en clienteRepositories.
             Client client = clientsRepositories.findByEmail(inputName);
 
             if (client != null) {
+                //Iniciamos Session con Email y password.
                 return new User(client.getEmail(), client.getPassword(),
                         AuthorityUtils.createAuthorityList(client.getRole().toString()));
+                //AuthorityUtils: en Sprint Security proporciona metodos de utilidad para trabajar
+                //con roles y autoridades en contexto de seguridad,
 
             } else {
 
@@ -40,6 +43,7 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
 
     }
 
+    //PasswordEncoder se encarga de Encriptar las contraseñas de los Usuarios
     @Bean
     public PasswordEncoder passwordEncoder(){
         return PasswordEncoderFactories.createDelegatingPasswordEncoder()

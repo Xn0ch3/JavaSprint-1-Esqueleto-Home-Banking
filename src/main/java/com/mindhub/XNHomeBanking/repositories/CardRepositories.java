@@ -6,4 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface CardRepositories extends JpaRepository<Card, Long> {
+
+    boolean existsByNumber(String number);
 }

@@ -4,32 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="./images/banking-serviceWhite.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="./style.css">
     <title>Your Account</title>
 </head>
 
 <body>
     <div id="app">
-        <header class="bg-blue-700">
-            <button v-on:click="showModal" class="flex w-full items-center justify-center">
-                <img class="h-[3rem] w-[3rem] justify-end bg-white" src="./images/acceso.png" alt="images-Access">
-            </button>
+        <header class="bg-blue-700 flex flex-wrap justify-between items-center p-3">
+            <nav class="flex items-center flex flex-wrap">
+                <div class="flex items-center bg-white rounded-lg p-3">
+                    <img class="h-[3rem] w-[3rem]" src="./images/banking-serviceWhite.png" alt="LogoHome banking-serviceWhite">
 
-            <nav class="flex flex-wrap justify-center opacity-100 text-center items-center justify-around p-3">
-
-                <div class="flex items-center bg-white rounded-lg">
-                    <img class="h-[5rem] w-[5rem]" src="./images/banking-serviceWhite.png"
-                        alt="LogoHome banking-serviceWhite">
-                    <h1 class="font-extrabold text-3xl">Bank MH</h1>
                 </div>
-
             </nav>
+            <h1 class="font-extrabold text-3xl bg-white rounded-lg p-5">Welcome to Bank MindHub</h1>
+            <button v-on:click="showModal" class="flex items-center justify-center">
+                <img class="h-[3rem] w-[3rem] justify-end bg-white " src="../images/acceso.png" alt="images-Acceso">
+                Login
+            </button>
         </header>
+        
 
-        <main class="min-h-[80vh] ">
+        <main class="min-h-[80vh] gap-10 ">
             <div class="flex">
 
                 <img class="w-1/2 h-[15rem]" src="./images/bannerindex.jpg" alt="bannerIndex">
@@ -37,40 +37,195 @@
 
             </div>
 
+
             <div class="flex justify-center">
 
-                <div class="w-2/3 justify-center">
+                
+                <div class="min-h-screen  sm:p-10 p-5 lg:px-10 bg-gray-100">
+                    <h2 class="text-3xl font-semibold text-gray-800 mb-6">At Bank MindHub, we always think about our clients</h2>
+                    
+                    <div id="clientes"   class=" place-content-center justify-center justify-items-center grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-5">
+                        <div class="bg-white shadow-lg rounded-xl overflow-hidden max-w-xs order-first lg:order-none">
+                            <div>
+                                <img src="./images/bannerCard.jpg" alt="Credit & Debit Card"
+                                    class="w-full h-40 sm:h-48 object-cover">
+                            </div>
+                            <div class="py-5 px-6 sm:px-8">
+                                <h2 class="text-xl sm:text-2xl text-gray-800 font-semibold mb-3">Credit & Debit Card
+                                </h2>
+                                <p class="text-gray-500 leading-relaxed">
+                                    I am eager to apply for a Visa/Mastercard credit and debit card with [Bank Name] to
+                                    streamline my financial transactions. The global acceptance and security features
+                                    make it an ideal choice for my banking needs. Attached are my supporting documents
+                                    for your prompt consideration.</p>
 
-                    <p class="text-white font-mono text-base ">
-                        Welcome to <strong>Bank MindHub</strong> Online Banking!</p>
+                                <ul class="flex mt-8">
+                                    <li>
 
-                    <p class="text-white font-mono text-base ">Experience seamless banking from the comfort of your home
-                        with our secure online platform. Manage your accounts,
-                        transfer funds, pay bills, and enjoy a host of convenient features designed to make your banking
-                        experience
-                        efficient and hassle-free.</p>
+                                    </li>
+                                    <li>
+                                        <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200"
+                                            alt="Face"
+                                            class="rounded-full w-10 h-10 object-cover border-2 border-white">
+                                    </li>
+                                    <li>
+                                        <img src="https://images.pexels.com/photos/769772/pexels-photo-769772.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200"
+                                            alt="Face"
+                                            class="rounded-full w-10 h-10 object-cover border-2 border-white">
+                                    </li>
+                                    <li>
+                                        <img src="https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200"
+                                            alt="Face"
+                                            class="rounded-full w-10 h-10 object-cover border-2 border-white">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white shadow-lg rounded-xl overflow-hidden max-w-xs order-3 md:row-start-1 md:col-start-2 lg:order-none">
+                            <div>
+                                <img src="https://images.pexels.com/photos/326501/pexels-photo-326501.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                                    alt="Web Design" class="w-full h-40 sm:h-48 object-cover">
+                            </div>
+                            <div class="py-5 px-6 sm:px-8">
+                                <h2 class="text-xl sm:text-2xl text-gray-800 font-semibold mb-3">Web/App HomeBanking
+                                </h2>
+                                <p class="text-gray-500 leading-relaxed">
+                                    Easily manage your finances with our user-friendly home banking platform. Experience
+                                    secure transactions, real-time account updates, and personalized financial
+                                    insights—all at your fingertips. Sign up today for a smarter and more convenient
+                                    banking experience.</p>
 
-                    <p class="text-white font-mono text-base ">At <strong>Bank MindHub</strong>, we prioritize your
-                        security. Rest assured that your transactions are protected
-                        with advanced encryption technology, and our dedicated team is committed to ensuring the
-                        confidentiality of your
-                        financial information.</p>
+                                <ul class="flex mt-8">
+                                    <li>
+                                        <img src="https://images.pexels.com/photos/1758845/pexels-photo-1758845.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200"
+                                            alt="Face"
+                                            class="rounded-full w-10 h-10 object-cover border-2 border-white">
+                                    </li>
+                                    <li>
+                                        <img src="https://images.pexels.com/photos/1832959/pexels-photo-1832959.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200"
+                                            alt="Face"
+                                            class="rounded-full w-10 h-10 object-cover border-2 border-white">
+                                    </li>
+                                    <li>
+                                        <img src="https://images.pexels.com/photos/38554/girl-people-landscape-sun-38554.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200"
+                                            alt="Face"
+                                            class="rounded-full w-10 h-10 object-cover border-2 border-white">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white shadow-lg rounded-xl overflow-hidden max-w-xs order-5 lg:order-none">
+                            <div>
+                                <img src="./images/viajeCredit.jpg" alt="Photography"
+                                    class="w-full h-40 sm:h-48 object-cover">
+                            </div>
+                            <div class="py-5 px-6 sm:px-8">
+                                <h2 class="text-xl sm:text-2xl text-gray-800 font-semibold mb-3">Photography</h2>
+                                <p class="text-gray-500 leading-relaxed">Unlock financial possibilities with our
+                                    exclusive credit options and special offers through the bank. From competitive
+                                    interest rates to tailored financing solutions, we're here to help you achieve your
+                                    goals. Explore our credit offerings today and seize the opportunities that suit your
+                                    financial needs.</p>
 
-                    <p class="text-white font-mono text-base ">Explore the various services we offer and discover the
-                        convenience of 24/7 banking. If you have any questions or
-                        need assistance, our customer support team is ready to help.</p>
+                                <ul class="flex mt-8">
+                                    <li>
+                                        <img src="https://images.pexels.com/photos/458766/pexels-photo-458766.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"
+                                            alt="Face"
+                                            class="rounded-full w-10 h-10 object-cover border-2 border-white">
+                                    </li>
+                                    <li>
+                                        <img src="https://images.pexels.com/photos/458718/pexels-photo-458718.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"
+                                            alt="Face"
+                                            class="rounded-full w-10 h-10 object-cover border-2 border-white">
+                                    </li>
+                                    <li>
+                                        <img src="https://images.pexels.com/photos/573299/pexels-photo-573299.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200"
+                                            alt="Face"
+                                            class="rounded-full w-10 h-10 object-cover border-2 border-white">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
-                    <p class="text-white font-mono text-base ">Thank you for choosing <strong>Bank MindHub</strong> for
-                        your
-                        online banking needs. We look forward to serving you
-                        and providing you with a reliable and user-friendly banking experience.</p>
-
-                    <p class="text-white font-mono text-base ">Best regards,<br>
-                        The <strong>Bank MindHub</strong> Team</p>
-
+                    </div>
                 </div>
+
+
             </div>
 
+            <div id="testimonios" >
+
+                <h2>
+                    <span class="text-3xl font-semibold text-gray-800 bg-white rounded-full p-5 gap-20 ">What our clients think of us like:</span>
+                </h2>
+
+                <div class="max-w-lg mx-auto grid gap-5 lg:grid-cols-4 lg:max-w-none  ">
+
+                    <div
+                        class="bg-white rounded-lg overflow-hidden m-4 hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+                        <div class="p-4 max-w-sm mx-auto rounded-lg shadow-md bg-white">
+
+                            <img src="https://images.pexels.com/photos/412840/pexels-photo-412840.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"
+                            alt="Face"
+                            class="rounded-full w-50 h-50 object-cover border-2 border-white">
+                            <h2 class="font-bold text-lg mb-2">John Doe</h2>
+
+                            <p class="text-gray-700">"I love the convenience and reliability of the bank's services. It
+                                has made managing my finances a breeze."</p>
+
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-lg overflow-hidden m-4 hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+                        <div class="p-4 max-w-sm mx-auto rounded-lg shadow-md bg-white">
+
+                            <img src="https://images.pexels.com/photos/89790/beauty-woman-portrait-face-89790.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"
+                            alt="Face"
+                            class="rounded-full w-50 h-50 object-cover border-2 border-white">
+
+                            <h2 class="font-bold text-lg mb-2">Jane Smith</h2>
+
+                            <p class="text-gray-700">"The bank's commitment to customer satisfaction and innovative
+                                solutions sets it apart. Highly recommended!"</p>
+
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-lg overflow-hidden m-4 hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+                        <div class="p-4 max-w-sm mx-auto rounded-lg shadow-md bg-white">
+
+                            <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200"
+                            alt="Face"
+                            class="rounded-full w-50 h-50 object-cover border-2 border-white">
+
+                            <h2 class="font-bold text-lg mb-2">Alex Johnson</h2>
+
+                            <p class="text-gray-700">"The bank's user-friendly interface and top-notch security make
+                                banking a pleasant experience for me."</p>
+
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white rounded-lg overflow-hidden m-4 hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+                        <div class="p-4 max-w-sm mx-auto rounded-lg shadow-md bg-white">
+
+                            <img src="https://images.pexels.com/photos/458718/pexels-photo-458718.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"
+                            alt="Face"
+                            class="rounded-full w-50 h-50 object-cover border-2 border-white">
+
+                            <h2 class="font-bold text-lg mb-2">Emily Davis</h2>
+
+                            <p class="text-gray-700">"I appreciate the bank's dedication to providing excellent
+                                financial services. Trustworthy and efficient."</p>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
             <footer
                 class="bg-blue-700 text-white flex flex-wrap justify-center text-center items-center justify-around p-3 ">
@@ -84,69 +239,89 @@
                 </div>
             </footer>
 
-            <!-- Modal Login -->
             <div v-if="modalVisible"
-                class=" w-full  h-screen  bg-slate-400/40  fixed inset-0 z-10 flex justify-center items-center ">
+                class="w-full h-screen bg-slate-400/40 fixed inset-0 z-10 flex justify-center items-center">
                 <div
-                    class="w-11/12 h-auto md:w-3/4 md:h-3/4 flex justify-center items-center  rounded-2xl bg-beige shadow-lg  text-blue hover:text-orange">
-                    <div class=" w-full h-full flex flex-end flex-row-reverse ">
+                    class="w-11/12 h-auto md:w-3/4 md:h-3/4 flex justify-center items-center rounded-2xl bg-beige shadow-lg text-blue hover:text-orange">
+                    <div class="w-full h-full flex flex-end flex-row-reverse">
 
                         <div class="container" id="container">
                             <div class="form-container sign-up-container">
-                                <button v-on:click="closeModal()" class="w-10 h-10 mt-1 mr-2 z-40 absolute top-0 right-0">
-                                    <img src="./images/cerrar-simbolo-de-boton-circular.png" class="bg-beige p-1 rounded-lg" alt="cerrarModal">
+                                <button v-on:click="closeModal()"
+                                    class="w-10 h-10 mt-1 mr-2 z-40 absolute top-0 right-0">
+                                    <img src="./images/cerrar-simbolo-de-boton-circular.png"
+                                        class="bg-beige p-1 rounded-lg" alt="cerrarModal">
                                 </button>
-                                <form @submit.prevent="signup"  class="gap-5" action="#">
-                                    <h1>Create Account</h1>
-                                    <span>or use your email for registration</span>
+                                <form @submit.prevent="signup" class=" text-center" action="#">
+                                    <h1 class="font-bold text-2xl">Create Account</h1>
+                                    <span class="text-xs">or use your email for registration</span>
                                     <label for="name">Name</label>
-                                    <input @input="getFirstname"  type="text" id="name" placeholder="Name" />
+                                    <input @input="getFirstname" type="text" id="name" placeholder="Name"
+                                        class="bg-eee border-none p-2 m-0 w-full" />
                                     <label for="lastName">Last Name</label>
-                                    <input @input="getLastname"  type="text" id="lastName" placeholder="Last Name" />
+                                    <input @input="getLastname" type="text" id="lastName" placeholder="Last Name"
+                                        class="bg-eee border-none p-2 m-0 w-full" />
                                     <label for="emailSignup">Email</label>
-                                    <input @input="getEmail"  type="email" id="emailSignup" placeholder="Email" />
+                                    <input @input="getEmail" type="email" id="emailSignup" placeholder="Email"
+                                        class="bg-eee border-none p-2 m-0 w-full" />
                                     <label for="passwordSignup">Password</label>
-                                    <div class="flex">
-                                        <input @input="getPassword"  type="password" id="passwordSignup" placeholder="Password" />
-                                        <i class="far fa-eye cursor-pointer" @click="togglePassword()" id="togglePassword"></i>
+                                    <div class="flex items-center">
+                                        <input @input="getPassword" type="password" id="passwordSignup"
+                                            placeholder="Password" class="bg-eee border-none p-2 m-0 w-full" />
+                                        <i class="far fa-eye cursor-pointer" @click="togglePassword()"
+                                            id="togglePassword"></i>
                                     </div>
-                                    <button type="submit">Sign Up</button>
+                                    <button type="submit"
+                                        class="border-none bg-blue-500 text-white  font-bold uppercase rounded-full py-2 px-5 mt-4">Sign
+                                        Up</button>
                                 </form>
                             </div>
                             <div class="form-container sign-in-container">
-                                <button v-on:click="closeModal()" class="w-10 h-10 mt-1 mr-2 z-40 absolute top-0 right-0">
-                                    <img src="./images/cerrar-simbolo-de-boton-circular.png" class="bg-beige p-1 rounded-lg" alt="cerrarModal">
+                                <button v-on:click="closeModal()"
+                                    class="w-10 h-10 mt-1 mr-2 z-40 absolute top-0 right-0">
+                                    <img src="./images/cerrar-simbolo-de-boton-circular.png"
+                                        class="bg-beige p-1 rounded-lg" alt="cerrarModal">
                                 </button>
-                                <form @submit.prevent="signin"  class="gap-5">
-                                    <h1>Sign in</h1>
-                                    <span>or use your account</span>
+                                <form @submit.prevent="signin" class=" text-center">
+                                    <h1 class="font-bold text-2xl">Sign in</h1>
+                                    <span class="text-xs">or use your account</span>
                                     <label for="emailSignIn">Email</label>
-                                    <input @input="getEmail" :value="email" type="email" id="emailSignIn" placeholder="Email" />
+                                    <input @input="getEmail" :value="email" type="email" id="emailSignIn"
+                                        placeholder="Email" class="bg-eee border-none p-2 m-0 w-full" />
                                     <label for="passwordSignIn">Password</label>
-                                    <div class="flex" >
-                                    <input @input="getPassword" :value="password" type="password" id="passwordSignIn" placeholder="Password" />
-                                    <i class="far fa-eye cursor-pointer" @click="togglePassword()" id="togglePassword"></i>
+                                    <div class="flex items-center">
+                                        <input @input="getPassword" :value="password" type="password"
+                                            id="passwordSignIn" placeholder="Password"
+                                            class="bg-eee border-none p-2 m-0 w-full" />
+                                        <i class="far fa-eye cursor-pointer" @click="togglePassword()"
+                                            id="togglePassword"></i>
                                     </div>
-                                    <a href="#">Forgot your password?</a>
-                                    <button type="submit">Sign In</button>
+                                    <a href="#" class="text-blue">Forgot your password?</a>
+                                    <button type="submit"
+                                        class="border-none bg-blue-500 text-white font-bold uppercase rounded-full py-2 px-5 mt-4">Sign
+                                        In</button>
                                 </form>
                             </div>
                             <div class="overlay-container">
                                 <div class="overlay">
                                     <div class="overlay-panel overlay-left">
-                                        <h1>Welcome Back!</h1>
-                                        <p>To keep connected with us please login with your personal info</p>
-                                        <button @click="signInButton" class="ghost">Sign In</button>
+                                        <h1 class="text-white font-bold text-2xl">Welcome Back!</h1>
+                                        <p class="text-white">To keep connected with us please login with your personal
+                                            info</p>
+                                        <button @click="signInButton"
+                                            class="border-none bg-white text-blue-500 font-bold uppercase rounded-full py-2 px-5 mt-4">Sign
+                                            In</button>
                                     </div>
                                     <div class="overlay-panel overlay-right">
-                                        <h1>Hello, Friend!</h1>
-                                        <p>Enter your personal details and start journey with us</p>
-                                        <button @click="signUpButton" class="ghost">Sign Up</button>
+                                        <h1 class="text-white font-bold text-2xl">Hello, Friend!</h1>
+                                        <p class="text-white">Enter your personal details and start journey with us</p>
+                                        <button @click="signUpButton"
+                                            class="border-none bg-white text-blue-500 font-bold uppercase rounded-full py-2 px-5 mt-4">Sign
+                                            Up</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
 
                     </div>
                 </div>
@@ -154,7 +329,6 @@
 
 
             <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
-
             <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
             <script type="text/javascript" src="./tailwind.config.js"></script>
             <script src="./index.js"></script>

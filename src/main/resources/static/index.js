@@ -22,16 +22,68 @@ const app = Vue.createApp({
                     window.location.href="./pages/accounts.html"
                 }
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error);
+                // Código para manejar el error
+                if (error.response) {
+                    // El servidor respondió con un código de estado fuera del rango 2xx
+                    Swal.fire({
+                        icon: 'error',
+                        title: `Error de respuesta: ${error.response.data.message}`,
+                        text: error.response.status || 'Error desconocido',
+                        footer: `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`
+                    });
+                } else if (error.request) {
+                    // La solicitud fue hecha, pero no se recibió respuesta
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error de solicitud',
+                        text: 'No se recibió respuesta del servidor'
+                    });
+                } else {
+                    // Ocurrió un error al configurar la solicitud
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error general',
+                        text: error.message
+                    });
+                }
+            });
         },
         signup(){
             axios.post("/api/clients?firstname=" + this.firstname + "&lastname=" + this.lastname + "&email=" + this.email + "&password=" + this.password)
                 .then(response => {
-                    console.log("registered" + this.email);
-                    console.log(response.data);
-                    this.signin();   
+                    console.log("Register" , response.data);
+                    this.signin();
+                    this.createdAccount();
                 })
-                .catch(error => console.log(error))
+                .catch(error => {
+                    console.log(error);
+                    // Código para manejar el error
+                    if (error.response) {
+                        // El servidor respondió con un código de estado fuera del rango 2xx
+                        Swal.fire({
+                            icon: 'error',
+                            title: `Error de respuesta: ${error.response.status}`,
+                            text: error.response.data.message || 'Error desconocido',
+                            footer: `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`
+                        });
+                    } else if (error.request) {
+                        // La solicitud fue hecha, pero no se recibió respuesta
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error de solicitud',
+                            text: 'No se recibió respuesta del servidor'
+                        });
+                    } else {
+                        // Ocurrió un error al configurar la solicitud
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error general',
+                            text: error.message
+                        });
+                    }
+                });
         },
 
         logout(event){
@@ -41,7 +93,43 @@ const app = Vue.createApp({
                 console.log("logout", response)
                 window.location.href="src/main/resources/static/index.html"
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                // Código para manejar el error
+                if (error.response) {
+                    // El servidor respondió con un código de estado fuera del rango 2xx
+                    Swal.fire({
+                        icon: 'error',
+                        title: `Error de respuesta: ${error.response.status}`,
+                        text: error.response.data.message || 'Error desconocido',
+                        footer: `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`
+                    });
+                } else if (error.request) {
+                    // La solicitud fue hecha, pero no se recibió respuesta
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error de solicitud',
+                        text: 'No se recibió respuesta del servidor'
+                    });
+                } else {
+                    // Ocurrió un error al configurar la solicitud
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error general',
+                        text: error.message
+                    });
+                }
+            });
+        },
+
+        createdAccount(){
+            axios.post("/api/clients/current/accounts")
+                .then(response => {
+                    console.log("Cuenta Creada", response)
+                    this.listAccounts.push(response.data);
+                    console.log("listAccount", this.listAccounts)
+                    // window.location.href="src/main/resources/static/pages/accounts.html"
+                    
+                })
         },
 
         getFirstname(event){
@@ -100,6 +188,7 @@ const app = Vue.createApp({
             container.classList.remove("right-panel-active")
         }
 
+        
 
     },
 }).mount('#app');

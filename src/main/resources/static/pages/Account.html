@@ -4,34 +4,40 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://cdn.tailwindcss.com"></script>
         <link rel="shortcut icon" href="../images/banking-serviceWhite.png" type="image/x-icon">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="../style.css">
         <title>Your Account</title>
     </head>
     
     <body>
     <div id="app">
-    <header class="bg-blue-700">
+        <header class="bg-blue-700 flex justify-center items-center p-3">
 
-        <button class="flex w-full items-center justify-center">
-            <img class="h-[3rem] w-[3rem] justify-end bg-white" src="../images/acceso.png" alt="images-Access">
-        </button>
+            <nav class="flex items-center gap-10 flex flex-wrap">
+                <img class="h-16 w-16 bg-white rounded-lg p-3" src="../images/banking-serviceWhite.png"
+                    alt="LogoHome banking-serviceWhite">
 
-        <nav class="flex flex-wrap justify-center opacity-100 text-center items-center justify-around p-3">
-            <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="./accounts.html">Account</a>
-            <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="./cards.html">Cards</a>
-            <div class="flex items-center bg-white rounded-lg">
-                <img class="h-[5rem] w-[5rem]" src="../images/banking-serviceWhite.png" alt="LogoHome banking-serviceWhite">
-                <h1 class="font-extrabold text-3xl">Bank MH</h1>
-            </div>
-            <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="#">Loans</a>
-            <a class="h-[3rem] w-[10rem] bg-black text-white p-3 rounded-lg text-lg" href="#">Transaction</a>
-        </nav>
+                <div class="flex gap-10">
+                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-100" href="./accounts.html">Account</a>
+                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-100" href="./cards.html">Cards</a>
+                </div>
 
-        <button  class="flex w-full items-center justify-center">
-            <img v-on:click="logout()" class="h-[3rem] w-[3rem] justify-end bg-white" src="../images/cerrar-sesion.png" alt="closeSesion">
-        </button>
+                <div class="flex items-center bg-white rounded-lg p-2">
+                    <h1 class="font-extrabold text-3xl">Bank MindHub</h1>
+                </div>
+
+                <div class="flex gap-10">
+                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-100" href="#">Loans</a>
+                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-900" href="../pages/account.html?id=">Transaction</a>
+                </div>
+
+                <button v-on:click="closeSeccion" class="btn-nav flex items-center">
+                    <img class="h-8 w-8 mr-2" src="../images/cerrar-sesion.png" alt="closeSesion">
+                    Close Session
+                </button>
+            </nav>
 
     </header>
 
