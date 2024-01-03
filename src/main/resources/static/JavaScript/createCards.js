@@ -76,18 +76,15 @@ const app = createApp({
         },
         
         createdCard(cardType, cardColor) {
-            axios.post("/api/clients/current/cards?cardColor=" + cardColor + "&cardType=" + cardType)
+            axios.post("/api/clients/current/cards?cardColor=" + this.cardColor + "&cardType=" + this.cardType)
                 .then(response => {
                     console.log("Card Created", response);
                     this.cards.push(response.data);
                     console.log("Cards", this.cards);
-                    // window.location.href="src/main/resources/static/pages/createCards.html?id=" + this.id
-
                 })
                 .catch(error => {
 
                     if (error.response) {
-
                         Swal.fire({
                             background: "linear-gradient(to right, #191970, #00BFFF) no-repeat 0 0 / cover",
                             color: "white",

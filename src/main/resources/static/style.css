@@ -14,10 +14,10 @@ body {
 header {
 	min-height: 10%;
 }
-
+/* 
 main {
 	min-height: 80%;
-}
+} */
 
 /* Login */
 
@@ -252,6 +252,6 @@ li+li {
 }
 
 
-footer {
+/* footer {
 	min-height: 10%;
-}
+} */

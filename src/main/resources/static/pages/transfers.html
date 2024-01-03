@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../images/banking-serviceWhite.png" type="image/x-icon">
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Transfers</title>
+</head>
+
+<body>
+    <div id="app">
+        <header class="bg-blue-700 flex justify-center items-center p-3">
+
+            <nav class="flex items-center gap-10 flex flex-wrap">
+                <img class="h-16 w-16 bg-white rounded-lg p-3" src="../images/banking-serviceWhite.png"
+                    alt="Logo Home Banking">
+
+                <div class="flex gap-10">
+                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-100" href="./accounts.html">Account</a>
+                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-100" href="./cards.html">Cards</a>
+                </div>
+
+                <div class="flex items-center bg-white rounded-lg p-2">
+                    <h1 class="font-extrabold text-3xl">Bank MindHub</h1>
+                </div>
+
+                <div class="flex gap-10">
+                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-100" href="#">Loans</a>
+                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-900" href="./transfers.html">Transaction</a>
+                </div>
+
+                <button @click="closeSession()" class="btn-nav flex items-center">
+                    <img class="h-8 w-8 mr-2" src="../images/cerrar-sesion.png" alt="closeSesion">
+                    Close Session
+                </button>
+            </nav>
+
+        </header>
+
+        <main class="min-h-screen gap-10">
+            <h2 class="text-[50px] text-center text-white">Welcome {{clients.firstname}}!</h2>
+
+            <!-- Formulario de transferencias -->
+            <div class="flex justify-center items-center">
+                <form
+                    class="bg-white p-10 rounded-lg shadow-2xl shadow-black gap-10 justify-around items-center text-center">
+                    <div class="flex flex-col gap-10">
+                        <div class="flex flex-col gap-5">
+                            <label class="text-lg" for="accountNumber">Account Origen</label>
+                            <select v-model="accountOrigen">
+                                <template v-if="listAccounts.length > 0 " v-for="account in listAccounts">
+                                    <option>{{account.number}}</option>
+                                </template>
+                            </select>
+                        </div>
+                        <div class="flex flex-col gap-5">
+                            <label class="text-lg" for="accountNumber">Account Destiny</label>
+                            <input class="rounded-lg" type="text" name="accountNumber" id="accountNumber"
+                                v-model="accountDestiny">
+                        </div>
+                        <div class="flex flex-row gap-5">
+                            <label class="text-lg" for="amount">Amount</label>
+                            <input class="rounded-lg" type="number" name="amount" id="amount" v-model="amount">
+                        </div>
+                        <div class="flex flex-col gap-5">
+                            <label class="text-lg" for="description">Description</label>
+                            <input class="rounded-lg" type="text" name="description" id="description"
+                                v-model="description">
+                        </div>
+                        <div class="flex flex-col gap-5">
+                            <button class="btn-nav text-2xl p-4 rounded-lg bg-blue-900" type="button"
+                                @click.prevent="selectAndTransfer()">Transfer
+                            </button>
+                            <div v-show="statusTransaction">
+                                <p v-if="statusTransaction">Transaction created successfully!</p>
+                                <p v-else  >Something went wrong!</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </main>
+
+        <footer
+            class="bg-blue-700 text-white flex flex-wrap justify-center text-center items-center justify-around p-3">
+            <div class="flex justify-around text-center items-center gap-10">
+                <p>© Cohort-52 Xavier Nochelli 2023 All rights reserved</p>
+                <div class="flex flex-wrap justify-center text-center items-center justify-around gap-10 ">
+                    <img class="h-[2rem] w-[2rem]" src="../images/instagram.png" alt="instagram">
+                    <img class="h-[2rem] w-[2rem]" src="../images/facebook.png" alt="facebook">
+                    <img class="h-[2rem] w-[2rem]" src="../images/whatsapp.png" alt="whatsapp">
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../JavaScript/transfer.js"></script>
+</body>
+
+</html>

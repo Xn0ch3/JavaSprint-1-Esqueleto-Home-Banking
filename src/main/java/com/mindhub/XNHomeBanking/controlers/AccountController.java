@@ -30,11 +30,11 @@ public class AccountController {
     @Autowired
     private ClientsRepositories clientsRepositories;
 
-    @GetMapping("/all")
-    public List<AccountDTO> getAllAccounts() {
-        return accountRepositories.findAll()
+    @RequestMapping("/all/accounts")
+    public List<ClientDTO> getAllClients() {
+        return clientsRepositories.findAll()
                 .stream()
-                .map(account -> new AccountDTO(account))
+                .map(client -> new ClientDTO(client))
                 .collect(Collectors.toList());
     }
 
@@ -76,4 +76,6 @@ public class AccountController {
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
+
+    //Sprint8
 }//Aca termina la class AccountController.

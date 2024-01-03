@@ -30,7 +30,7 @@ public class ClientController {
     @Autowired
     private AccountRepositories accountRepositories;
 
-    @RequestMapping("/all")
+    @RequestMapping("/all/clients")
     public List<ClientDTO> getAllClients() {
         return clientsRepositories.findAll()
                 .stream()
