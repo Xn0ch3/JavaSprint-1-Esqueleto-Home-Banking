@@ -30,7 +30,8 @@ public class SecurityConfig {
                 auth.requestMatchers("/index.html", "/style.css", "/index.js" , "tailwind.config.js", "/images/**").permitAll()
                         .requestMatchers("/pages/**" , "/JavaScript/**" ,"/api/clients/current","/api/accounts/*/transactions").hasAuthority("CLIENT")
                         .requestMatchers(HttpMethod.POST, "/api/clients" ).permitAll()
-                        .requestMatchers( HttpMethod.POST, "/api/clients/current/accounts","/api/clients/current/cards","/api/transactions" ).hasAuthority("CLIENT")
+                        .requestMatchers(HttpMethod.GET, "/api/loans").hasAuthority("CLIENT")
+                        .requestMatchers( HttpMethod.POST, "/api/clients/current/accounts","/api/clients/current/cards","/api/transactions", "/api/loans" ).hasAuthority("CLIENT")
                         .requestMatchers("/admin/**", "/h2-console").hasAuthority("ADMIN")
                         .anyRequest().denyAll());
         //Desabilitamos el CSRF que desactiva el TOKEN xq si no deberiamos solicitarlo y enviarlo

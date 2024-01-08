@@ -1,5 +1,7 @@
 package com.mindhub.XNHomeBanking.controlers;
 
+import com.mindhub.XNHomeBanking.Service.CardService;
+import com.mindhub.XNHomeBanking.Service.ClientService;
 import com.mindhub.XNHomeBanking.models.*;
 import com.mindhub.XNHomeBanking.repositories.CardRepositories;
 import com.mindhub.XNHomeBanking.repositories.ClientsRepositories;
@@ -19,16 +21,16 @@ import java.time.LocalDate;
 public class CardController {
 
     @Autowired
-    ClientsRepositories clientsRepositories;
+    ClientService clientService;
     @Autowired
-    CardRepositories cardRepositories;
+    CardService cardService;
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<String> createdCard(Authentication authentication,
                                               @RequestParam CardColor cardColor,
                                               @RequestParam CardType cardType) {
 
-        Client client = clientsRepositories.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
         //Creamos
         long colorType = client.getCards().stream()
                 .filter(card -> card.getCardColor() == cardColor && card.getCardType() == cardType)
@@ -56,7 +58,7 @@ public class CardController {
 
         Card card = new Card( numberCard, client.getFirstname()+" "+ client.getLastname(), cvv , LocalDate.now(), LocalDate.now().plusYears(5), cardColor, cardType);
         client.addCard(card);
-        cardRepositories.save(card);
+        cardService.saveCard(card);
 
         return new ResponseEntity<>("Account Created", HttpStatus.CREATED);
     }

@@ -11,7 +11,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface AccountRepositories extends JpaRepository< Account, Long> {
 
-    boolean existsBynumber(String numberAccount);
+    boolean existsByNumber(String numberAccount);
 
     Account findByNumber (String number);
 

@@ -1,5 +1,7 @@
 package com.mindhub.XNHomeBanking.controlers;
 
+import com.mindhub.XNHomeBanking.Service.AccountService;
+import com.mindhub.XNHomeBanking.Service.ClientService;
 import com.mindhub.XNHomeBanking.dto.AccountDTO;
 import com.mindhub.XNHomeBanking.dto.ClientDTO;
 import com.mindhub.XNHomeBanking.dto.TransactionDTO;
@@ -26,25 +28,18 @@ import java.util.stream.Collectors;
 public class AccountController {
     //Autowired es una anotación utilizada en Spring Boot para habilitar la inyección automática de dependencias.
     @Autowired
-    private AccountRepositories accountRepositories;
+    private AccountService accountService;
     @Autowired
-    private ClientsRepositories clientsRepositories;
+    private ClientService clientService;
 
     @RequestMapping("/all/accounts")
-    public List<ClientDTO> getAllClients() {
-        return clientsRepositories.findAll()
-                .stream()
-                .map(client -> new ClientDTO(client))
-                .collect(Collectors.toList());
+    public List<AccountDTO> getAllAccount() {
+        return accountService.getAllAccountsDTO();
     }
 
     @GetMapping("/accounts/{id}/transactions")
     public List<TransactionDTO> getOneAccount(@PathVariable Long id) {
-        return accountRepositories.findById(id)
-                .map(account -> account.getTransactionSet().stream()
-                        .map(TransactionDTO::new)
-                        .collect(Collectors.toList()))
-                .orElse(Collections.emptyList());
+        return accountService.findById(id);
 
     }
     //Sprint7
@@ -52,7 +47,7 @@ public class AccountController {
     @PostMapping("/clients/current/accounts")
     public ResponseEntity<String> CreateAccount(Authentication authentication) {
 
-        Client client = clientsRepositories.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
         //Creamos el una condicion para saber si tiene Cuentas, y si tiene más 3.
         if (client.getListAccount().size() > 2 ){
             return new ResponseEntity<>("You already have 3 accounts, it is the maximum per customer.", HttpStatus.FORBIDDEN);
@@ -61,12 +56,12 @@ public class AccountController {
         String numberAccount;
         do{
             numberAccount = "VIN-" + getRandomNumber(00000000 , 99999999);
-        }while (accountRepositories.existsBynumber(numberAccount));
+        }while (accountService.existsByNumber(numberAccount));
 
         Account account = new Account(numberAccount , LocalDate.now(), (double) 0);
-        clientsRepositories.save(client);
+        clientService.saveClient(client);
         client.addAccount(account);
-        accountRepositories.save(account);
+        accountService.saveAccount(account);
 
 
         return new ResponseEntity<>("Account Created", HttpStatus.CREATED);

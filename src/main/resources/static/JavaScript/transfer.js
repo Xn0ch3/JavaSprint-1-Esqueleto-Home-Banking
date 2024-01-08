@@ -40,13 +40,14 @@ const app = createApp({
                     console.log("Transaction Created", response)
                     this.loadData()
 
-                    if (response.status === 201) {
+                    if(response.status.toString().startsWith('2')) {
                         this.successMsg();
                         this.statusTransaction = true
                     } else {
                         this.errorMsg();
                         this.statusTransaction = false
                     }
+                    window.location.href = "/pages/accounts.html"
                 })
                 .catch(error => console.log(error))
                 

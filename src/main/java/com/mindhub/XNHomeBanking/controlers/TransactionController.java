@@ -1,5 +1,7 @@
 package com.mindhub.XNHomeBanking.controlers;
 
+import com.mindhub.XNHomeBanking.Service.AccountService;
+import com.mindhub.XNHomeBanking.Service.TransactionService;
 import com.mindhub.XNHomeBanking.dto.AccountDTO;
 import com.mindhub.XNHomeBanking.dto.ClientDTO;
 import com.mindhub.XNHomeBanking.models.Account;
@@ -26,27 +28,27 @@ import java.time.LocalDateTime;
 public class TransactionController {
 
     @Autowired
-    private TransactionRepositories transactionRepositories;
+    private TransactionService transactionService;
 
     @Autowired
     private ClientsRepositories clientsRepositories;
 
     @Autowired
-    private AccountRepositories accountRepositories;
+    private AccountService accountService;
 
     @Transactional
-   @PostMapping("/transactions")
+    @PostMapping("/transactions")
     //Debe recibir el monto, la descripción, número de cuenta de origen y número de cuenta de destino como parámetros de solicitud
     public ResponseEntity<String> createTransactions(@RequestParam double amount,
                                                      @RequestParam String description ,
                                                     @RequestParam String accountOrigen,
                                                     @RequestParam String accountDestiny,
                                                     Authentication authentication){
-       Client client = clientsRepositories.findByEmail(authentication.getName());
+
         //Verificar que exista la cuenta de origen
-       Account originAccount = accountRepositories.findByNumber(accountOrigen);
+       Account originAccount = accountService.findByNumber(accountOrigen);
         //Verificar que exista la cuenta de destino
-       Account destinyAccount = accountRepositories.findByNumber((accountDestiny));
+       Account destinyAccount = accountService.findByNumber((accountDestiny));
 
         //Verificar que los parámetros no estén vacíos
         if (accountOrigen.isBlank()){
@@ -103,15 +105,15 @@ public class TransactionController {
         destinyAccount.addTransaction(transactionCredit);
 
         //Se guardan las transaction en el Respositories Transaction.
-        transactionRepositories.save(transactionDebit);
-        transactionRepositories.save(transactionCredit);
+        transactionService.saveTransaction(transactionDebit);
+        transactionService.saveTransaction(transactionCredit);
 
         //Se guardan las transaction en el Respositories Account.
-        accountRepositories.save(originAccount);
-        accountRepositories.save(destinyAccount);
+        accountService.saveAccount(originAccount);
+        accountService.saveAccount(destinyAccount);
 
 
-        return new ResponseEntity<>("transfer successfully completed",HttpStatus.CREATED);
+        return new ResponseEntity<>("Transfer successfully completed",HttpStatus.CREATED);
 
     }
 
