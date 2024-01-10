@@ -17,8 +17,8 @@ import java.util.Set;
 @SpringBootApplication
 public class  XnHomeBankingApplication {
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	//@Autowired
+	//private PasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(XnHomeBankingApplication.class, args);
@@ -32,7 +32,7 @@ public class  XnHomeBankingApplication {
 									  CardRepositories cardRepositories){
 
 		return args -> {
-			Client cliente1 = new Client("Melba","Morel","Melba@mindhub.com", passwordEncoder.encode("melba2023"));
+			/*Client cliente1 = new Client("Melba","Morel","Melba@mindhub.com", passwordEncoder.encode("melba2023"));
 			Client cliente2 = new Client("Xavier", "Nochelli", "Xavier@mindhub.com",passwordEncoder.encode("xavier2023"));;
 			Client admin = new Client("Alvaro", "Orquera","Alvaro@mindhub.com", passwordEncoder.encode("alvaro2023"));
 			admin.setRole(RoleType.ADMIN);
@@ -103,7 +103,7 @@ public class  XnHomeBankingApplication {
 			transactionRepositories.save(transaction8);
 
 			//Se generan los 3 Loan(Prestamos).
-			Loan hipotecario = new Loan("Mortgage", 500000.00, Set.of(12,24,49,60));
+			Loan hipotecario = new Loan("Mortgage", 500000.00, Set.of(12,24,48,60));
 			Loan personal = new Loan("Personal", 100000.0,Set.of(6,12,24));
 			Loan automotriz = new Loan("Automotive", 300000.00,Set.of(6,12,24,36));
 
@@ -154,7 +154,7 @@ public class  XnHomeBankingApplication {
 			//Se Agregan Card al Cliente2.
 			cliente2.addCard(xavierCredito);
 			//Se agrega la Card a CardRepositories.
-			cardRepositories.save(xavierCredito);
+			cardRepositories.save(xavierCredito);*/
 		};
 	}
 

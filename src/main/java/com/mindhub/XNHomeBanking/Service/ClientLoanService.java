@@ -7,5 +7,5 @@ public interface ClientLoanService {
 
     @Autowired
 
-    public void saveClientLoan(ClientLoan clientLoan);
+    void saveClientLoan(ClientLoan clientLoan);
 }

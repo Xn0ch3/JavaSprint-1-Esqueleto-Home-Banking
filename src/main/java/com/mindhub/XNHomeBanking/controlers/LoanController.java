@@ -30,6 +30,10 @@ public class LoanController {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private ClientLoanService clientLoanService;
+
+
     @GetMapping("/loans")
     public List<LoanDTO> getLoansDTO(){
         return loanService.getAllLoanDTO();
@@ -70,13 +74,17 @@ public class LoanController {
 
         accountDestinationNumber.setBalance(accountDestinationNumber.getBalance()+loanAplicationDTO.getAmount());
         accountService.saveAccount(accountDestinationNumber);
+        clientLoanService.saveClientLoan(clientLoan);
 
         Transaction loanCreditTransaction = new Transaction(TransactionType.CREDIT, loanAplicationDTO.getAmount(),loan.getName()+"Loan Aprovated.", LocalDateTime.now());
         accountDestinationNumber.addTransaction(loanCreditTransaction);
         transactionService.saveTransaction(loanCreditTransaction);
 
+
         accountDestinationNumber.setBalance(accountDestinationNumber.getBalance()+ loanAplicationDTO.getAmount());
         accountService.saveAccount(accountDestinationNumber);
+
+
 
         return new ResponseEntity<>("Loans successfully completed",HttpStatus.CREATED);
     };
