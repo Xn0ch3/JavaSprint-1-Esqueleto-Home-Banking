@@ -5,17 +5,20 @@ const app = createApp({
         return {
             cards: [],
             clients: [],
-            id: null,
-            CardType:"",
-            CardColor:"",
+            // id: null,
+            CardType: "",
+            CardColor: "",
+            cardId:"",
+            
         }
     },
     created() {
-        const search = location.search
-        const params = new URLSearchParams(search)
-        this.id = params.get('id')
+        // const search = location.search
+        // const params = new URLSearchParams(search)
+        // this.id = params.get('id')
         this.loadData()
         this.formatBudget()
+
     },
     methods: {
         loadData() {
@@ -24,6 +27,7 @@ const app = createApp({
                     this.clients = response.data
                     this.cards = response.data.cardDTOS
                     console.log("cards", this.cards)
+                    console.log("Response",response)
 
                 })
                 .catch(error => console.log(error))
@@ -51,10 +55,10 @@ const app = createApp({
                     color: "white"
                     const cardType = document.getElementById('cardType').value;
                     const cardColor = document.getElementById('cardColor').value;
-        
+
                     await this.createdCard(cardType, cardColor);
                     this.loadData()
-        
+
                     return { cardType, cardColor };
                 },
                 inputValidator: (result) => {
@@ -74,7 +78,7 @@ const app = createApp({
                 }
             });
         },
-        
+
         createdCard(cardType, cardColor) {
             axios.post("/api/clients/current/cards?cardColor=" + cardColor + "&cardType=" + cardType)
                 .then(response => {
@@ -99,8 +103,44 @@ const app = createApp({
                     }
                 });
         },
-        
+        deleteCard() {
+            axios.patch("/api/clients/current/cards/delete?id=" + this.cardId)
+                .then(response => {
+                    response
+                    this.loadData()
+                }).catch((error) => {console.log(error)})
+        },
 
+        cardExpiration(card) {
+            const currentDate = new Date();
+            const expirationDate = new Date(card.thrueDate);
+
+            card.isExpired = expirationDate < currentDate;
+        
+            // Compara la fecha de vencimiento con la fecha actual
+            if (expirationDate < currentDate) {
+                // La tarjeta está vencida
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Tarjeta Vencida',
+                    text: `La tarjeta con número ${card.number} está vencida.`,
+                    confirmButtonColor: '#d33',
+                    background: "linear-gradient(to right, #191970, #00BFFF) no-repeat 0 0 / cover",
+                    color: "white",
+                });
+            } else {
+                // La tarjeta no está vencida
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Tarjeta Válida',
+                    text: `La tarjeta con número ${card.number} no está vencida.`,
+                    confirmButtonColor: '#3085d6',
+                    background: "linear-gradient(to right, #191970, #00BFFF) no-repeat 0 0 / cover",
+                    color: "white",
+                });
+            }
+        },
+        
         formatBudget(balance) {
             if (balance !== undefined && balance !== null) {
                 return balance.toLocaleString("en-US", {

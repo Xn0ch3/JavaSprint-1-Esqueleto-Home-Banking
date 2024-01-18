@@ -29,9 +29,9 @@ public class ClientDTO  {
         firstname = client.getFirstname();
         lastname = client.getLastname();
         email = client.getEmail();
-        accounts = client.getListAccount().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
+        accounts = client.getListAccount().stream().filter(account -> account.isActive()).map(account -> new AccountDTO(account)).collect(Collectors.toList());
         clientLoans = client.getClientLoans().stream().map(clientLoan -> new ClientLoanDTO(clientLoan)).collect(Collectors.toSet());
-        card = client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toSet());
+        card = client.getCards().stream().filter(card -> card.getCardStatus()).map(card -> new CardDTO(card)).collect(Collectors.toSet());
     }
 
     //Se generan los Getters y Setters.

@@ -20,10 +20,12 @@ public class Card {
     private LocalDate fromDate;
 
     private LocalDate ThrueDate;
-
+    @Enumerated(EnumType.STRING)
     private CardColor cardColor;
-
+    @Enumerated(EnumType.STRING)
     private  CardType cardType;
+
+    private Boolean cardStatus = true;
 
     //Relacionamos ManyToOne varias tarjetas a un cliente.
     @ManyToOne
@@ -36,14 +38,16 @@ public class Card {
 
     //Constructor Parametrizado.
 
-    public Card(String number, String cardHolder, Integer cvv, LocalDate fromDate, LocalDate thrueDate, CardColor cardColor, CardType cardType) {
+    public Card(String number, String cardHolder, Integer cvv, LocalDate fromDate, LocalDate thrueDate, CardColor cardColor, CardType cardType, boolean cardStatus) {
         this.number = number;
         this.cardHolder = cardHolder;
         this.cvv = cvv;
         this.fromDate = fromDate;
-        ThrueDate = thrueDate;
+        this.ThrueDate = thrueDate;
         this.cardColor = cardColor;
         this.cardType = cardType;
+        this.cardStatus = cardStatus;
+
     }
 
 
@@ -117,6 +121,14 @@ public class Card {
         this.client = client;
     }
 
+    public Boolean getCardStatus() {
+        return cardStatus;
+    }
+
+    public void setCardStatus(Boolean cardStatus) {
+        this.cardStatus = cardStatus;
+    }
+
     //ToString
 
 
@@ -132,6 +144,7 @@ public class Card {
                 ", cardColor=" + cardColor +
                 ", cardType=" + cardType +
                 ", client=" + client +
+                ",cardStatus=" + cardStatus +
                 '}';
     }
 }//Aca Termina la Class Card

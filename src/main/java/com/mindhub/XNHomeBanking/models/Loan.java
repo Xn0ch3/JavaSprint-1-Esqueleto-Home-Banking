@@ -21,6 +21,8 @@ import java.util.Set;
     @ElementCollection
     private Set<Integer> payments;
 
+    private double interestRate;
+
 //Relaciones
 
    @OneToMany(mappedBy = "loan", fetch = FetchType.EAGER)
@@ -32,10 +34,11 @@ import java.util.Set;
     }
 //Constructor Parametrizado.
 
-    public Loan(String name, Double maxAmount, Set<Integer> payments) {
+    public Loan(String name, Double maxAmount, Set<Integer> payments, double interestRate) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
+        this.interestRate = interestRate;
     }
 
 
@@ -72,6 +75,14 @@ import java.util.Set;
         this.payments = payments;
     }
 
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(double interestRate) {
+        this.interestRate = interestRate;
+    }
+
     //Métodos para agregar ClientLoan(clientes) a Loan(Prestamos)
     public void addClientLoan(ClientLoan clientLoan){
         clientLoan.setLoan(this);
@@ -85,6 +96,7 @@ import java.util.Set;
                 ", name='" + name + '\'' +
                 ", maxAmount=" + maxAmount +
                 ", payments=" + payments +
+                ", interestRate" + interestRate +
                 '}';
     }
 }//Aca termina la clase Loan.

@@ -51,7 +51,13 @@ const app = Vue.createApp({
             });
         },
         signup(){
-            axios.post("/api/clients?firstname=" + this.firstname + "&lastname=" + this.lastname + "&email=" + this.email + "&password=" + this.password)
+            const requestBody ={
+                "firstname": this.firstname,
+                "lastname": this.lastname,
+                "email": this.email,
+                "password": this.password
+            }
+            axios.post("/api/clients" , requestBody)
                 .then(response => {
                     console.log("Register" , response.data);
                     this.signin();

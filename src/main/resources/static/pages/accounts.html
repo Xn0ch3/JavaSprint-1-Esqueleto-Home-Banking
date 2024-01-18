@@ -13,92 +13,106 @@
 
 <body>
     <div id="app">
-        <header class="bg-blue-700 flex justify-center items-center p-3">
+        <header class="bg-blue-700 w-full flex justify-center items-center p-3">
 
-            <nav class="flex items-center gap-10 flex flex-wrap">
-                <img class="h-16 w-16 bg-white rounded-lg p-3" src="../images/banking-serviceWhite.png"
-                    alt="LogoHome banking-serviceWhite">
+            <nav class="flex items-center  w-full flex-wrap bg-blue-700 p-4">
 
-                <div class="flex gap-10">
-                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-900" href="./accounts.html">Account</a>
-                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-100" href="./cards.html">Cards</a>
+                <div class="w-full md:w-auto md:flex-shrink-0 flex justify-center items-center md:mr-4">
+                    <img class="h-16 w-16 bg-white rounded-lg p-3" src="../images/banking-serviceWhite.png"
+                        alt="LogoHome banking-serviceWhite">
+                    <h1 class="font-extrabold text-3xl text-white ml-2">Bank MindHub</h1>
                 </div>
-
-                <div class="flex items-center bg-white rounded-lg p-2">
-                    <h1 class="font-extrabold text-3xl">Bank MindHub</h1>
-                </div>
-
-                <div class="flex gap-10">
-                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-100" href="./loan-application.html">Loans</a>
-                    <a class="btn-nav text-2xl p-4 rounded-lg  bg-blue-100" href="./transfers.html">Transaction</a>
-                </div>
-
-                <button v-on:click="closeSeccion" class="btn-nav flex items-center">
+                <button v-on:click="closeSeccion" class="btn-nav flex items-center ml-auto text-white">
                     <img class="h-8 w-8 mr-2" src="../images/cerrar-sesion.png" alt="closeSesion">
                     Close Session
                 </button>
+
+                <div
+                    class="w-full flex gap-5  flex-wrap  mt-4 md:mt-0 md:flex justify-center items-center  md:flex-wrap md:space-x-8">
+                    <a class="btn-nav text-2xl p-3 md:p-4 rounded-lg bg-blue-900" href="./accounts.html">Account</a>
+                    <a class="btn-nav text-2xl p-3 md:p-4 rounded-lg bg-blue-100" href="./cards.html">Cards</a>
+                    <a class="btn-nav text-2xl p-3 md:p-4 rounded-lg bg-blue-100"
+                        href="./loan-application.html">Loans</a>
+                    <a class="btn-nav text-2xl p-3 md:p-4 rounded-lg bg-blue-100"
+                        href="./transfers.html">Transaction</a>
+                </div>
+
             </nav>
+
+
+
 
         </header>
 
-        <main class="min-h-[80vh] gap-10">
-            <h2 class="text-[50px] text-center text-white">Welcome {{clients.firstname}}!</h2>
-            
-            <div class="flex flex-wrap  flex justifi-center items-center  ">
-            <img class="w-1/2 h-1/4" src="../images/images.jpg" alt="welcomeBanner">
-            <img class="w-1/2 h-1/4" src="../images/BannerTransferenciaMovil.png" alt="">
-                <div class=" flex justifi-center items-center">
-                    <button @click="createdAccount" class="text-2xl p-4 rounded-lg  bg-blue-100">
-                        "Do you want to create a new account?"
-                    </button>
-                </div>
+        <main class="min-h-[80vh] gap-10 flex items-center ">
+            <div>
 
-                <div class="flex flex-wrap gap-10 justify-center m-5">
-                    <template v-if="listAccounts.length > 0" v-for="account in listAccounts">
-                        <div
-                            class="bg-white w-[400px] h-[250px] p-10 rounded-lg shadow-2xl shadow-black gap-10 justify-around items-center text-center ">
-                            <h2 class="text-black text-lg">Account Number: {{account.number}} </h2>
-                            <div class="flex flex-col justify-center gap-5">
-                                <h2 class="text-black text-lg">Balance: </h2>
-                                <div class="bg-grey rounded-lg">
-                                    <h2 class="text-[30px] text-center text-black">{{formatBudget(account.balance)}}
-                                    </h2>
+                <h2 class="text-[50px] text-center text-white">Welcome {{clients.firstname}}!</h2>
+                <div class="flex flex-wrap  flex justifi-center items-center  ">
+                    <img class="w-1/2 h-1/4" src="../images/images.jpg" alt="welcomeBanner">
+                    <img class="w-1/2 h-1/4" src="../images/BannerTransferenciaMovil.png" alt="">
+                    <div class=" flex justifi-center items-center">
+                        <button @click="AccountTypeSelection()" class="text-2xl p-4 rounded-lg  bg-blue-100">
+                            "Create a new account?"
+                        </button>
+                    </div>
+
+                    <div class="flex flex-wrap w-full gap-10 items-center justify-center m-5">
+                        <template v-if="listAccounts.length > 0" v-for="account in listAccounts">
+                            <div
+                                class="bg-white w-[250px] h-[370px] p-10 rounded-lg shadow-2xl shadow-black gap-10 justify-around items-center text-center ">
+                                <h2>Account {{account.accountType}}</h2>
+                                <h2 class="text-black text-lg">Account Number: {{account.number}} </h2>
+                                <div class="flex flex-col justify-center gap-5">
+                                    <h2 class="text-black text-lg">Balance: </h2>
+                                    <div class="bg-grey rounded-lg">
+                                        <h2 class="text-[30px] text-center text-black">{{formatBudget(account.balance)}}
+                                        </h2>
+                                    </div>
+                                </div>
+                                <h2 class="text-black">Creation Date: {{account.creationDate}} </h2>
+                                <div class="flex flex-col gap-1 ">
+                                    <a class="bg-black text-xs  text-white p-2 rounded-lg gap-10"
+                                        v-bind:href="'../pages/account.html?id=' + account.id">Transaction Details</a>
+                                    <button @click="deleteAccount(account.id)"
+                                        class="bg-black text-xs text-white p-2 rounded-lg">
+                                        "Delete this account?"
+                                    </button>
                                 </div>
                             </div>
-                            <h2 class="text-black">Creation Date: {{account.creationDate}} </h2>
-                            <div>
-                                <a class="bg-black text-white p-2 rounded-lg"
-                                    v-bind:href="'../pages/account.html?id=' + account.id">Transaction Details</a>
-                            </div>
-                        </div>
-                    </template>
-                    <div class="bg-white w-[600px] h-[200px] flex flex-col justify-center items-center rounded-2xl m-5"
-                        v-if="loans.length > 0">
-                        <h2 class="text-2xl font-extrabold bg-white rounded-lg p-5 m-5 items-center justify-center">
-                            Loans
-                        </h2>
-                        <table
-                            class="border border-black w-full h-1/2 border-solid-5 p-10 rounded-lg shadow-md bg-white gap-10 text-center ">
-                            <thead>
-                                <tr>
-                                    <th class="border-b border-black">Name</th>
-                                    <th class="border-b border-black">Amount</th>
-                                    <th class="border-b border-black">Payment</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-for="loan in loans">
-                                    <tr class="border-b border-gray-300">
-                                        <td class="py-2">{{loan.name}}</td>
-                                        <td class="py-2">{{formatBudget(loan.amount)}}</td>
-                                        <td class="py-2">{{loan.payment}}</td>
+                        </template>
+                        <div class=" flex justify-center items-center w-full" >
+                        <div class="bg-white  w-[250px] h-[250px] md:w-[350px] md:h-[250px]  flex flex-col verflow-x-auto  justify-center items-center rounded-2xl m-5"
+                            v-if="loans.length > 0">
+
+                                <h2 class="text-2xl font-extrabold bg-white rounded-lg p-5 m-5 items-center justify-center">
+                                    Loans
+                                </h2>
+                                <table
+                                class="border border-black w-full h-1/2 border-solid-5 p-10 rounded-lg shadow-md bg-white gap-10 text-center ">
+                                <thead>
+                                    <tr>
+                                        <th class="border-b border-black">Name</th>
+                                        <th class="border-b border-black">Amount</th>
+                                        <th class="border-b border-black">Payment</th>
                                     </tr>
-                                </template>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <template v-for="loan in loans">
+                                        <tr class="border-b border-gray-300">
+                                            <td class="py-2">{{loan.name}}</td>
+                                            <td class="py-2">{{formatBudget(loan.amount)}}</td>
+                                            <td class="py-2">{{loan.payment}}</td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div v-else>
+                            <h2 class="text-2xl font-extrabold bg-white rounded-lg p-5 m-5">Does Not Have Current Loans
+                            </h2>
+                        </div>
                     </div>
-                    <div v-else>
-                        <h2 class="text-2xl font-extrabold bg-white rounded-lg p-5 m-5">Does Not Have Current Loans</h2>
                     </div>
                 </div>
             </div>

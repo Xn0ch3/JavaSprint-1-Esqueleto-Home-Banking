@@ -73,7 +73,7 @@ const app = createApp({
             console.log(this.accountDest)
             
 
-            axios.post("/api/loans", body)
+            axios.post("/api/loans/admin", body)
                 .then(response => {
                     this.data = response.data
                     console.log(this.data)

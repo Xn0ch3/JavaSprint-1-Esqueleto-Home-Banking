@@ -5,9 +5,8 @@ import jakarta.persistence.ElementCollection;
 
 import java.util.Set;
 
-public class LoanDTO {
+public class LoanAdminDTO {
 
-    private Long id;
 
     private String name;
 
@@ -18,17 +17,13 @@ public class LoanDTO {
 
     private double interestRate;
 
-    public LoanDTO(Loan loan) {
-        id = loan.getId();
+    public LoanAdminDTO(Loan loan) {
         name = loan.getName();
         maxAmount = loan.getMaxAmount();
         payments = loan.getPayments();
         interestRate = loan.getInterestRate();
     }
 
-    public Long getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
@@ -45,4 +40,5 @@ public class LoanDTO {
     public double getInterestRate() {
         return interestRate;
     }
+
 }

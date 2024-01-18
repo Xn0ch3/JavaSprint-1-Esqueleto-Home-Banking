@@ -1,4 +1,4 @@
-package com.mindhub.XNHomeBanking.Service;
+package com.mindhub.XNHomeBanking.service;
 
 import com.mindhub.XNHomeBanking.models.Transaction;
 

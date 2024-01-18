@@ -24,6 +24,7 @@ public class CardDTO {
 
     private CardType cardType;
 
+    private boolean cardStatus;
     //Constructor CardDTO
     public CardDTO (Card card){
 
@@ -35,6 +36,11 @@ public class CardDTO {
         this.ThrueDate = card.getThrueDate();
         this.cardColor = card.getCardColor();
         this.cardType = card.getCardType();
+        this.cardStatus = card.getCardStatus();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNumber() {
@@ -64,4 +70,9 @@ public class CardDTO {
     public CardType getCardType() {
         return cardType;
     }
+
+    public boolean isCardStatus() {
+        return cardStatus;
+    }
+
 }//Aca termina la Class CardDTO

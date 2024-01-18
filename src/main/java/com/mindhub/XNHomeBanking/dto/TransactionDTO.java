@@ -23,6 +23,8 @@ public class TransactionDTO {
 
     private LocalDateTime dateTime;
 
+    private double accountBalance;
+
     //Generamos Constructor
 
 
@@ -32,6 +34,7 @@ public class TransactionDTO {
         amount = transaction.getAmount();
         description = transaction.getDescription();
         dateTime = transaction.getDateTime();
+        accountBalance = transaction.getAccountBalance();
     }
 
     //Getters de las propiedades/atributos.
@@ -55,5 +58,9 @@ public class TransactionDTO {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public double getAccountBalance() {
+        return accountBalance;
     }
 }//Aca termina la clase TransactionDTO

@@ -1,6 +1,7 @@
 package com.mindhub.XNHomeBanking.controlers;
 
-import com.mindhub.XNHomeBanking.Service.ClientService;
+import com.mindhub.XNHomeBanking.models.AccountType;
+import com.mindhub.XNHomeBanking.service.ClientService;
 import com.mindhub.XNHomeBanking.dto.ClientDTO;
 import com.mindhub.XNHomeBanking.dto.CreateClientDTO;
 import com.mindhub.XNHomeBanking.models.Account;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.mindhub.XNHomeBanking.utils.Utils.numberAccountRandom;
 
 
 //Controlador, escucha y responde peticiones.
@@ -69,18 +71,15 @@ public class ClientController {
         clientService.saveClient(client);
         String numberAccount;
         do {
-            numberAccount = "VIN-" + getRandomNumber(00000000, 99999999);
+            numberAccount = numberAccountRandom();
         } while (accountRepositories.existsByNumber(numberAccount));
 
-        Account account = new Account(numberAccount, LocalDate.now(), (double) 0);
+        Account account = new Account(numberAccount, LocalDate.now(), (double) 0, true, AccountType.CURRENT);
         client.addAccount(account);
         accountRepositories.save(account);
         return new ResponseEntity<>("Registrado con exito", HttpStatus.CREATED);
     }
 
-    public int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
 
     @GetMapping("/clients/current")
     public ResponseEntity<Object> getOneClient(Authentication authentication) {

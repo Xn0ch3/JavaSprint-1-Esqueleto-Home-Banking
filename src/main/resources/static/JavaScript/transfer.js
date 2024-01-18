@@ -49,7 +49,20 @@ const app = createApp({
                     }
                     window.location.href = "/pages/accounts.html"
                 })
-                .catch(error => console.log(error))
+                .catch(error => {
+                    // Código para manejar el error
+                    if (error.response) {
+                        // El servidor respondió con un código de estado fuera del rango 2xx
+                        Swal.fire({
+                            background: "linear-gradient(to right, #191970, #00BFFF) no-repeat 0 0 / cover",
+                            color: "white",
+                            icon: 'error',
+                            title: 'Dear customer, we must inform you:',
+                            text: `${JSON.stringify(error.response.data, null, 2)}`,
+                            footer:  `Error de respuesta: ${error.response.status}`
+                        });
+                    }
+                })
                 
         },
         errorMsg(){

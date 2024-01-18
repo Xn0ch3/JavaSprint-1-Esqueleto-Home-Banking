@@ -4,8 +4,11 @@ import com.mindhub.XNHomeBanking.models.Card;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.List;
+
 @RepositoryRestResource
 public interface CardRepositories extends JpaRepository<Card, Long> {
 
     boolean existsByNumber(String number);
+
 }

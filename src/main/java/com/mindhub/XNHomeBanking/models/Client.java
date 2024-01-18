@@ -19,6 +19,14 @@ public class Client {
     //Atributos
     private String firstname, lastname, email, password;
 
+    public static String passwordValidator(String password)throws IllegalAccessError {
+        String pass = password;
+        if (!pass.matches("^(?=,*[A-Z])(?=,[a-z])(?=,*\\d)(?=,[!@#$%&.,])[A-Za-z\\d!@#$%&*.,]{8,}$")) {
+            throw new IllegalAccessError("password invalid.");
+        }
+        return pass;
+    }
+
     @Enumerated(EnumType.STRING)
    private RoleType role = RoleType.CLIENT;
 
@@ -30,7 +38,7 @@ public class Client {
     @OneToMany(mappedBy = "client" , fetch = FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
 
-    //Relacion de OneToMany un cliente puede tener varias tarjetas.
+    //Relación de OneToMany un cliente puede tener varias tarjetas.
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Card> cards = new HashSet<>();
 

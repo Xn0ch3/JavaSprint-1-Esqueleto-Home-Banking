@@ -1,25 +1,21 @@
 package com.mindhub.XNHomeBanking.controlers;
 
-import com.mindhub.XNHomeBanking.Service.AccountService;
-import com.mindhub.XNHomeBanking.Service.ClientService;
+import com.mindhub.XNHomeBanking.models.AccountType;
+import com.mindhub.XNHomeBanking.service.AccountService;
+import com.mindhub.XNHomeBanking.service.ClientService;
 import com.mindhub.XNHomeBanking.dto.AccountDTO;
-import com.mindhub.XNHomeBanking.dto.ClientDTO;
 import com.mindhub.XNHomeBanking.dto.TransactionDTO;
 import com.mindhub.XNHomeBanking.models.Account;
 import com.mindhub.XNHomeBanking.models.Client;
-import com.mindhub.XNHomeBanking.repositories.AccountRepositories;
-import com.mindhub.XNHomeBanking.repositories.ClientsRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+
 //RestController marca la clase como un controlador donde cada método devuelve un objeto de dominio en lugar de una vista.
 @RestController
 //RequestMapping se utiliza para asignar solicitudes web a clases de controlador específicas y/o métodos de controlador.
@@ -45,7 +41,8 @@ public class AccountController {
     //Sprint7
     //Creamos un metodo para Crear cuentas
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<String> CreateAccount(Authentication authentication) {
+    public ResponseEntity<String> CreateAccount(Authentication authentication,
+                                                @RequestParam AccountType accountType) {
 
         Client client = clientService.findByEmail(authentication.getName());
         //Creamos el una condicion para saber si tiene Cuentas, y si tiene más 3.
@@ -58,7 +55,7 @@ public class AccountController {
             numberAccount = "VIN-" + getRandomNumber(00000000 , 99999999);
         }while (accountService.existsByNumber(numberAccount));
 
-        Account account = new Account(numberAccount , LocalDate.now(), (double) 0);
+        Account account = new Account(numberAccount , LocalDate.now(), (double) 0, true, accountType);
         clientService.saveClient(client);
         client.addAccount(account);
         accountService.saveAccount(account);
@@ -72,5 +69,20 @@ public class AccountController {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
-    //Sprint8
+    @PatchMapping("/clients/current/accounts/delete")
+    public ResponseEntity<String> deleteAccount(@RequestParam Long id , Authentication authentication){
+        Client client = clientService.findByEmail(authentication.getName());
+        Account account = accountService.findByIdAccount(id);
+
+        if (account.isActive() && account.getClient().getEmail().equals(authentication.getName())){
+            if (account.getBalance() == 0 ) {
+                accountService.deleteAccount(account);
+                return new ResponseEntity<>("Your Account is Delete", HttpStatus.BAD_REQUEST);
+            }else {
+                return new ResponseEntity<>("Balance must be $0", HttpStatus.FORBIDDEN);
+            }
+        }
+        return new ResponseEntity<>("client is not authenticated or account is already desactive", HttpStatus.FORBIDDEN);
+
+    }
 }//Aca termina la class AccountController.

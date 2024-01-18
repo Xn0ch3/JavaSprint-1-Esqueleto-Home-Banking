@@ -1,4 +1,4 @@
-package com.mindhub.XNHomeBanking.Service;
+package com.mindhub.XNHomeBanking.service;
 
 import com.mindhub.XNHomeBanking.dto.ClientDTO;
 import com.mindhub.XNHomeBanking.models.Client;
@@ -11,11 +11,12 @@ public interface ClientService {
 
     List<ClientDTO> getAllClientsDTO();
 
-    boolean existsByEmail (String email);
+    boolean existsByEmail(String email);
 
     void saveClient(Client client);
 
     Client findByEmail(String email);
 
     Client getAutenticatedClient(String name);
+
 }

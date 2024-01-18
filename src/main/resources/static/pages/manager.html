@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="images/banking-serviceWhite.png" type="image/x-icon">
+    <title>Manager</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <header >
+            <div class=" flex justify-center w-full items-center gap-10 flex  ">
+                <img class="h-[10rem] w-[10rem] " src="../images/banking-serviceWhite.png"
+                    alt="LogoHome banking-serviceWhite">
+                <h1 class="font-extrabold text-5xl">Client Manager</h1>
+            </div>
+            <nav>
+            </nav>
+        </header>
+
+        <main class=" flex justify-center items-center  gap-10">
+            <div class="flex flex-col gap-10 justify-center" >
+
+                <div class=" flex flex-col space-around bg-black text-white items-center border solid border-black 
+                justify-items-center h-[15rem] w-[25rem] border-solid-5 p-5 rounded-lg" >
+                <h2 class="font-bold  text-2xl">client Manager</h2>
+                    <form class="border  border-black  flex flex-col gap-5">
+                        <label   for="name">Name  
+                            <input  class="text-black" type="text" id="name" v-model="name">
+                        </label>
+
+                        <label for="lastname">Lastname
+                            <input  class="text-black" type="text" id="lastname" v-model="lastname">
+                        </label>
+
+                        <label for="email">Email  
+                            <input  class="text-black" type="text" id="email" v-model="email">
+                        </label>
+
+                        <button  class="border solid border-white" @click="createClient">Add Client</button>
+                    </form>
+                </div>
+
+                <div  class=" flex flex-col justify-center items-center  gap-5 flex " >
+                    <h2 class="font-bold text-2xl ">Client List</h2>
+                    <table class="border border-black w-full border-solid-5 p-5 rounded-lg shadow-md">
+                        <thead>
+                            <tr>
+                                <th class="border-b border-gray-300">Name</th>
+                                <th class="border-b border-gray-300">Lastname</th>
+                                <th class="border-b border-gray-300">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-if="clients.length > 0" v-for="client in clients">
+                                <tr class="border-b border-gray-300">
+                                    <td class="py-2">{{client.name}}</td>
+                                    <td class="py-2">{{client.lastname}}</td>
+                                    <td class="py-2">{{client.email}}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+
+            <div class="border border-black  w-[50rem] h-[40rem] overflow-y-auto">
+                <h2 class="font-bold text-2xl">Client REST response</h2>
+                <pre>
+                    {{data}}
+                </pre>
+            </div>
+        </main>
+        <footer>
+            <div></div>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="./tailwind.config.js"></script>
+    <script src="../JavaScript/manager.js"></script>
+</body>
+
+</html>

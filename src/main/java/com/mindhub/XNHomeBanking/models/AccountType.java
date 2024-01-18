@@ -3,12 +3,9 @@ package com.mindhub.XNHomeBanking.models;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
-public enum CardColor {
+public enum AccountType {
     @Enumerated(EnumType.STRING)
-
-    GOLD,
-
-    SILVER,
-
-    TITANIUM
+    CURRENT,
+    @Enumerated(EnumType.STRING)
+    SAVINGS,
 }

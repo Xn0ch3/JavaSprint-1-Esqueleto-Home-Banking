@@ -1,5 +1,6 @@
 package com.mindhub.XNHomeBanking.dto;
 
+import com.mindhub.XNHomeBanking.models.AccountType;
 import com.mindhub.XNHomeBanking.models.Account;
 
 import java.time.LocalDate;
@@ -18,6 +19,8 @@ public class AccountDTO {
 
     private List<TransactionDTO> transaction;
 
+    private AccountType accountType;
+
     public AccountDTO() {
     }
 
@@ -32,6 +35,8 @@ public class AccountDTO {
         this.balance = account.getBalance();
 
         this.transaction = account.getTransactionSet().stream().map(transaction -> new TransactionDTO(transaction)).collect(Collectors.toList());
+
+        this.accountType = account.getAccountType();
     }
 
     public long getId() {
@@ -52,5 +57,9 @@ public class AccountDTO {
 
     public Double getBalance() {
         return balance;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
     }
 }//Aca termina la Clase AccountDTO

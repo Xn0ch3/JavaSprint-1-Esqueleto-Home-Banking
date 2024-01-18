@@ -1,4 +1,4 @@
-package com.mindhub.XNHomeBanking.Service;
+package com.mindhub.XNHomeBanking.service;
 
 import com.mindhub.XNHomeBanking.dto.AccountDTO;
 import com.mindhub.XNHomeBanking.dto.TransactionDTO;
@@ -10,6 +10,8 @@ public interface AccountService {
 
     Account findByNumber(String number);
 
+    Account findByIdAccount(long id);
+
     List<AccountDTO> getAllAccountsDTO();
 
     List<Account> getAllAccount();
@@ -19,4 +21,6 @@ public interface AccountService {
     boolean existsByNumber(String numberAccount);
 
     void saveAccount(Account account);
+
+    void deleteAccount(Account account);
 }

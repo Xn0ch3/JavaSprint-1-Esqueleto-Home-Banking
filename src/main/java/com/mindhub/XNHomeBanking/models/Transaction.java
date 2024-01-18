@@ -10,10 +10,10 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Enumerated(EnumType.STRING)
     private TransactionType type;
 
-    private Double amount;
+    private double amount;
 
     private String description;
 
@@ -21,16 +21,19 @@ public class Transaction {
     @ManyToOne
     private Account account;
 
+    private double accountBalance;
+
     //Constructor Vacío.
     public Transaction() {
     }
 
     //Constructor Parametrizado
-    public Transaction(TransactionType type, Double amount, String description, LocalDateTime dateTime) {
+    public Transaction(TransactionType type, double amount, String description, LocalDateTime dateTime, double accountBalance) {
         this.type = type;
         this.amount = amount;
         this.description = description;
         this.dateTime = dateTime;
+        this.accountBalance = accountBalance;
     }
     //Getters y Setters del Constructor Transaction, (Se elimina el SetID solo necesitamos el Get).
     public Long getId() {
@@ -78,6 +81,14 @@ public class Transaction {
         this.account = account;
     }
 
+    public double getAccountBalance() {
+        return accountBalance;
+    }
+
+    public void setAccountBalance(double accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
     //ToString para poder imprimir los datos y no el espacio en Memoria.
     @Override
     public String toString() {
@@ -88,6 +99,7 @@ public class Transaction {
                 ", description='" + description + '\'' +
                 ", dateTime=" + dateTime +
                 ", account=" + account +
+                ", accountBalance" + accountBalance +
                 '}';
     }
 

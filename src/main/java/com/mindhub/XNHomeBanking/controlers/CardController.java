@@ -1,20 +1,18 @@
 package com.mindhub.XNHomeBanking.controlers;
 
-import com.mindhub.XNHomeBanking.Service.CardService;
-import com.mindhub.XNHomeBanking.Service.ClientService;
+import com.mindhub.XNHomeBanking.service.CardService;
+import com.mindhub.XNHomeBanking.service.ClientService;
 import com.mindhub.XNHomeBanking.models.*;
-import com.mindhub.XNHomeBanking.repositories.CardRepositories;
-import com.mindhub.XNHomeBanking.repositories.ClientsRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+
+import static com.mindhub.XNHomeBanking.utils.Utils.generateCvv;
+import static com.mindhub.XNHomeBanking.utils.Utils.getRandomCardNumber;
 
 @RestController
 @RequestMapping("/api")
@@ -52,24 +50,28 @@ public class CardController {
         }
         //Creamos un String para posteriormente asignarle un número aleatorio.
         String numberCard = getRandomCardNumber();
-        int cvv = (int) (Math.random() * 999+100);
+        int cvv = generateCvv();
 
 
 
-        Card card = new Card( numberCard, client.getFirstname()+" "+ client.getLastname(), cvv , LocalDate.now(), LocalDate.now().plusYears(5), cardColor, cardType);
+        Card card = new Card( numberCard, client.getFirstname()+" "+ client.getLastname(), cvv , LocalDate.now(), LocalDate.now().plusYears(5), cardColor, cardType, true);
         client.addCard(card);
         cardService.saveCard(card);
 
-        return new ResponseEntity<>("Account Created", HttpStatus.CREATED);
+        return new ResponseEntity<>("Card Created", HttpStatus.CREATED);
+
     }
 
-    private String getRandomCardNumber() {
-        StringBuilder cardNumber = new StringBuilder();
-        for (int i = 0; i<4; i++){
-            int seccion=(int) (Math.random()*9000+1000);
-            cardNumber.append(seccion).append("-");
+    @PatchMapping("/clients/current/cards/delete")
+    public ResponseEntity<String> deleteCard(@RequestParam Long id, Authentication authentication) {
+        Client client = clientService.getAutenticatedClient(authentication.getName());
+        Card cards = cardService.findById(id);
+
+        if (cards.getCardStatus() && cards.getClient().getEmail().equals(authentication.getName())) {
+            cardService.cardDelete(cards);
+            return ResponseEntity.ok("Card successfully canceled.");
         }
-        return cardNumber.substring(0,cardNumber.length()-1);
+        return new  ResponseEntity<>("Your Card is Delete", HttpStatus.BAD_REQUEST);
     }
 
 }//Aca termina la clase de CardController

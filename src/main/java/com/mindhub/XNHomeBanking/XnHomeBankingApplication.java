@@ -14,11 +14,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@SpringBootApplication
-public class  XnHomeBankingApplication {
+	@SpringBootApplication
+	public class  XnHomeBankingApplication {
 
-	//@Autowired
-	//private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(XnHomeBankingApplication.class, args);
@@ -32,9 +32,9 @@ public class  XnHomeBankingApplication {
 									  CardRepositories cardRepositories){
 
 		return args -> {
-			/*Client cliente1 = new Client("Melba","Morel","Melba@mindhub.com", passwordEncoder.encode("melba2023"));
-			Client cliente2 = new Client("Xavier", "Nochelli", "Xavier@mindhub.com",passwordEncoder.encode("xavier2023"));;
-			Client admin = new Client("Alvaro", "Orquera","Alvaro@mindhub.com", passwordEncoder.encode("alvaro2023"));
+			Client cliente1 = new Client("Melba","Morel","Melba@mindhub.com", passwordEncoder.encode("Melba2023."));
+			Client cliente2 = new Client("Xavier", "Nochelli", "Xavier@mindhub.com",passwordEncoder.encode("Xavier2023."));;
+			Client admin = new Client("Alvaro", "Orquera","Alvaro@mindhub.com", passwordEncoder.encode("Alvaro2023."));
 			admin.setRole(RoleType.ADMIN);
 
 			System.out.println(cliente1); //sout sin guardar id = null
@@ -43,8 +43,8 @@ public class  XnHomeBankingApplication {
 			clientsRepositories.save(admin);
 
 
-			Account cuenta1 = new Account("VIN-001", LocalDate.now(), 5000.00);
-			Account cuenta2 = new Account("VIN-002", LocalDate.now().plusDays(1), 7500.00);
+			Account cuenta1 = new Account("VIN-001", LocalDate.now(), 5000.00, true, AccountType.CURRENT);
+			Account cuenta2 = new Account("VIN-002", LocalDate.now().plusDays(1), 7500.00, true , AccountType.SAVINGS);
 			cliente1.addAccount(cuenta1);
 			cliente1.addAccount(cuenta2);
 			System.out.println(cuenta1);
@@ -57,8 +57,8 @@ public class  XnHomeBankingApplication {
 			//Cliente N°2
 
 
-			Account cuenta3 = new Account("VIN-003", LocalDate.now(), 80000.00);
-			Account cuenta4 = new Account("VIN-004", LocalDate.now(), 150000.00);
+			Account cuenta3 = new Account("VIN-003", LocalDate.now(), 80000.00, true, AccountType.SAVINGS);
+			Account cuenta4 = new Account("VIN-004", LocalDate.now(), 150000.00 , true, AccountType.CURRENT);
 
 
 			cliente2.addAccount(cuenta3);
@@ -71,10 +71,10 @@ public class  XnHomeBankingApplication {
 
 			//Transacciones, se generan para el cliente1.
 
-			Transaction transaction1 = new Transaction(TransactionType.DEBIT, -550000.00, "Tarjeta Credito", LocalDateTime.now() );
-			Transaction transaction2 = new Transaction(TransactionType.CREDIT, 125000.00, "Haberes Mensuales",LocalDateTime.now() );
-			Transaction transaction3 = new Transaction(TransactionType.DEBIT, -85.000, "Compra",LocalDateTime.now());
-			Transaction transaction4 = new Transaction(TransactionType.DEBIT, -550.000, "Haberes Mensuales", LocalDateTime.now());
+			Transaction transaction1 = new Transaction(TransactionType.DEBIT, -550000.00, "Tarjeta Credito", LocalDateTime.now(),0);
+			Transaction transaction2 = new Transaction(TransactionType.CREDIT, 125000.00, "Haberes Mensuales",LocalDateTime.now(),0);
+			Transaction transaction3 = new Transaction(TransactionType.DEBIT, -85.000, "Compra",LocalDateTime.now(),0);
+			Transaction transaction4 = new Transaction(TransactionType.DEBIT, -550.000, "Haberes Mensuales", LocalDateTime.now(),0);
 			//Se guardan las Transacciones en las cuentas correspondientes.
 			cuenta1.addTransaction(transaction1);
 			cuenta1.addTransaction(transaction2);
@@ -87,10 +87,10 @@ public class  XnHomeBankingApplication {
 			transactionRepositories.save(transaction4);
 
 			//Se generan las Transacciones para el Cliente2
-			Transaction transaction5 = new Transaction(TransactionType.DEBIT, -9750.00, "Compra Online", LocalDateTime.now());
-			Transaction transaction6 = new Transaction(TransactionType.CREDIT, 5200.00, "Reembolso", LocalDateTime.now());
-			Transaction transaction7 = new Transaction(TransactionType.DEBIT, -11200.00, "Pago de Factura", LocalDateTime.now());
-			Transaction transaction8 = new Transaction(TransactionType.CREDIT, 1000.00, "Bonificación", LocalDateTime.now());
+			Transaction transaction5 = new Transaction(TransactionType.DEBIT, -9750.00, "Compra Online", LocalDateTime.now(),0);
+			Transaction transaction6 = new Transaction(TransactionType.CREDIT, 5200.00, "Reembolso", LocalDateTime.now(),0);
+			Transaction transaction7 = new Transaction(TransactionType.DEBIT, -11200.00, "Pago de Factura", LocalDateTime.now(),0);
+			Transaction transaction8 = new Transaction(TransactionType.CREDIT, 1000.00, "Bonificación", LocalDateTime.now(),0);
 			//Se guardan las Transacciones en las cuentas correspondientes.
 			cuenta3.addTransaction(transaction5);
 			cuenta3.addTransaction(transaction6);
@@ -103,9 +103,9 @@ public class  XnHomeBankingApplication {
 			transactionRepositories.save(transaction8);
 
 			//Se generan los 3 Loan(Prestamos).
-			Loan hipotecario = new Loan("Mortgage", 500000.00, Set.of(12,24,48,60));
-			Loan personal = new Loan("Personal", 100000.0,Set.of(6,12,24));
-			Loan automotriz = new Loan("Automotive", 300000.00,Set.of(6,12,24,36));
+			Loan hipotecario = new Loan("Mortgage", 500000.00, Set.of(12,24,48,60), 1.3);
+			Loan personal = new Loan("Personal", 100000.0,Set.of(6,12,24),1.1);
+			Loan automotriz = new Loan("Automotive", 300000.00,Set.of(6,12,24,36), 1.2);
 
 			//Se guardan los Loan(Prestamos).
 			loanRepositories.save(hipotecario);
@@ -139,8 +139,8 @@ public class  XnHomeBankingApplication {
 			clientLoanRepositories.save(prestamo4);
 
 			//Creamos Card para cliente1.
-			Card melvaDebito = new Card("3325-6745-7876-4445", "Melba Morel", 990, LocalDate.of(2021,04,26), LocalDate.now().plusYears(5), CardColor.GOLD, CardType.DEBIT);
-			Card melvaCredito = new Card("2234-6745-5528-7888", "Melba Morel", 750, LocalDate.of(2021,04,26), LocalDate.now().plusYears(5), CardColor.TITANIUM,CardType.CREDIT);
+			Card melvaDebito = new Card("3325-6745-7876-4445", "Melba Morel", 990, LocalDate.of(2021,04,26), LocalDate.now().plusYears(5), CardColor.GOLD, CardType.DEBIT, true);
+			Card melvaCredito = new Card("2234-6745-5528-7888", "Melba Morel", 750, LocalDate.of(2021,04,26), LocalDate.now().plusYears(5), CardColor.TITANIUM,CardType.CREDIT, true);
 			//Se agregan las Cards al Cliente.
 			cliente1.addCard(melvaDebito);
 			cliente1.addCard(melvaCredito);
@@ -150,11 +150,14 @@ public class  XnHomeBankingApplication {
 			System.out.println(melvaCredito);
 
 			//Creamos Card para Cliente2.
-			Card xavierCredito = new Card("4522-6526-8745-6324","Xavier Nochelli", 654, LocalDate.of(2022,05, 04), LocalDate.now().plusYears(5),CardColor.TITANIUM, CardType.CREDIT);
+			Card xavierCredito = new Card("4522-6526-8745-6324","Xavier Nochelli", 654, LocalDate.of(2022,05, 04), LocalDate.now().plusYears(5),CardColor.TITANIUM, CardType.CREDIT, true);
+			Card xavierCreditoVencida = new Card("1234-5678-9012-3456", "Xavier Vencida", 123, LocalDate.of(2020, 1, 1), LocalDate.of(2021, 1, 1), CardColor.SILVER, CardType.CREDIT, true);
 			//Se Agregan Card al Cliente2.
 			cliente2.addCard(xavierCredito);
+			cliente2.addCard(xavierCreditoVencida);
 			//Se agrega la Card a CardRepositories.
-			cardRepositories.save(xavierCredito);*/
+			cardRepositories.save(xavierCredito);
+			cardRepositories.save(xavierCreditoVencida);
 		};
 	}
 

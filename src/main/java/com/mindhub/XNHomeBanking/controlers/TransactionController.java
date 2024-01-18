@@ -1,16 +1,11 @@
 package com.mindhub.XNHomeBanking.controlers;
 
-import com.mindhub.XNHomeBanking.Service.AccountService;
-import com.mindhub.XNHomeBanking.Service.TransactionService;
-import com.mindhub.XNHomeBanking.dto.AccountDTO;
-import com.mindhub.XNHomeBanking.dto.ClientDTO;
+import com.mindhub.XNHomeBanking.service.AccountService;
+import com.mindhub.XNHomeBanking.service.TransactionService;
 import com.mindhub.XNHomeBanking.models.Account;
-import com.mindhub.XNHomeBanking.models.Client;
 import com.mindhub.XNHomeBanking.models.Transaction;
 import com.mindhub.XNHomeBanking.models.TransactionType;
-import com.mindhub.XNHomeBanking.repositories.AccountRepositories;
 import com.mindhub.XNHomeBanking.repositories.ClientsRepositories;
-import com.mindhub.XNHomeBanking.repositories.TransactionRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -93,8 +88,12 @@ public class TransactionController {
 
         //Se deben crear dos transacciones, una con el tipo de transacción “DEBIT” asociada a la cuenta
         // de origen y la otra con el tipo de transacción “CREDIT” asociada a la cuenta de destino.
-        Transaction transactionDebit = new Transaction(TransactionType.DEBIT, amount, description, LocalDateTime.now());
-        Transaction transactionCredit = new Transaction(TransactionType.CREDIT, amount, description, LocalDateTime.now());
+        Transaction transactionDebit = new Transaction(TransactionType.DEBIT, amount, description, LocalDateTime.now(), 0);
+        Transaction transactionCredit = new Transaction(TransactionType.CREDIT, amount, description, LocalDateTime.now(), 0);
+
+        //A las cuentas se les genera un balanace de movimientos, para generar un registro.
+        transactionDebit.setAccountBalance(originAccount.getBalance() - amount);
+        transactionCredit.setAccountBalance(destinyAccount.getBalance() + amount);
 
         //A la cuenta de origen se le restará el monto indicado en la petición y a la cuenta de destino se le sumará el mismo monto.
         originAccount.setBalance(originAccount.getBalance()-amount);

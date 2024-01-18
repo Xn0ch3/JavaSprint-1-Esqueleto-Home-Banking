@@ -28,9 +28,10 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth ->
                 //requestMatchers son las autorizaciones para los accesos.
                 auth.requestMatchers("/index.html", "/style.css", "/index.js" , "tailwind.config.js", "/images/**").permitAll()
-                        .requestMatchers("/pages/**" , "/JavaScript/**" ,"/api/clients/current","/api/accounts/*/transactions").hasAuthority("CLIENT")
+                        .requestMatchers("/pages/**" , "/JavaScript/**" ,"/api/clients/current","/api/accounts/*/transactions", "/clients/current/cards/delete").hasAuthority("CLIENT")
                         .requestMatchers(HttpMethod.POST, "/api/clients" ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/loans").hasAuthority("CLIENT")
+                        .requestMatchers(HttpMethod.PATCH, "/api/clients/current/cards/delete","/api/clients/current/accounts/delete").hasAuthority("CLIENT")
                         .requestMatchers( HttpMethod.POST, "/api/clients/current/accounts","/api/clients/current/cards","/api/transactions", "/api/loans" ).hasAuthority("CLIENT")
                         .requestMatchers("/admin/**", "/h2-console").hasAuthority("ADMIN")
                         .anyRequest().denyAll());
