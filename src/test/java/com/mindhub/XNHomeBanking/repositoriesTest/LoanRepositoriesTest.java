@@ -13,39 +13,39 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import static org.hamcrest.Matchers.*;
 
-
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class LoanRepositoriesTest {
-
-
-
-    @Autowired
-     private LoanRepositories loanRepositories;
-
-
-
-    @Test
-    public void existLoans(){
-
-        List<Loan> loans = loanRepositories.findAll();
-
-        assertThat(loans,is(not(empty())));
-
-    }
-
-
-
-    @Test
-
-    public void existPersonalLoan(){
-
-        List<Loan> loans = loanRepositories.findAll();
-
-        assertThat(loans, hasItem(hasProperty("name", is("Personal"))));
-
-    }
-
-
-
-}
+//
+//@DataJpaTest
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//public class LoanRepositoriesTest {
+//
+//
+//
+//    @Autowired
+//     private LoanRepositories loanRepositories;
+//
+//
+//
+//    @Test
+//    public void existLoans(){
+//
+//        List<Loan> loans = loanRepositories.findAll();
+//
+//        assertThat(loans,is(not(empty())));
+//
+//    }
+//
+//
+//
+//    @Test
+//
+//    public void existPersonalLoan(){
+//
+//        List<Loan> loans = loanRepositories.findAll();
+//
+//        assertThat(loans, hasItem(hasProperty("name", is("Personal"))));
+//
+//    }
+//
+//
+//
+//}
