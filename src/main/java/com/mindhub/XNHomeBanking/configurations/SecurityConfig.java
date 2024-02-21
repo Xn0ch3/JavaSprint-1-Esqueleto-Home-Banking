@@ -21,20 +21,33 @@ import org.springframework.security.web.authentication.logout.HttpStatusReturnin
 public class SecurityConfig {
     //Ayuda a Sprint a entender cuales son los componentes que va a ocupar al inicar la app
     //y permite oganizar y configurar los objetos de una clase designada como PasswordEncoder o SegurityFilterChain
- @Bean
+    @Bean
     //SecurityFilterChain es un Filtro en cadena para la seguridad.
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //Modificando las reglas de la seguridad de la app. Como se hace el Login, quienes son ADMIN & CLIENTS.
-        http.authorizeHttpRequests(auth ->
-                //requestMatchers son las autorizaciones para los accesos.
-                auth.requestMatchers("/index.html", "/style.css", "/index.js" , "tailwind.config.js", "/images/**").permitAll()
-                        .requestMatchers("/pages/**" , "/JavaScript/**" ,"/api/clients/current","/api/accounts/*/transactions", "/clients/current/cards/delete").hasAuthority("CLIENT")
-                        .requestMatchers(HttpMethod.POST, "/api/clients" ).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/loans").hasAuthority("CLIENT")
-                        .requestMatchers(HttpMethod.PATCH, "/api/clients/current/cards/delete","/api/clients/current/accounts/delete").hasAuthority("CLIENT")
-                        .requestMatchers( HttpMethod.POST, "/api/clients/current/accounts","/api/clients/current/cards","/api/transactions", "/api/loans" ).hasAuthority("CLIENT")
-                        .requestMatchers("/admin/**", "/h2-console").hasAuthority("ADMIN")
-                        .anyRequest().denyAll());
+        http.authorizeRequests(auth ->
+                // Autorizar recursos estáticos
+                auth.requestMatchers("/index.html", "/style.css", "/index.js", "tailwind.config.js", "/images/**").permitAll()
+
+                        // Autorizaciones para clientes
+                        .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
+                        .requestMatchers("/pages/**", "/JavaScript/**", "/api/accounts/*/transactions", "/clients/current/cards/delete")
+                        .hasAuthority("CLIENT")
+                        .requestMatchers(HttpMethod.GET, "/api/clients/current", "/api/loans")
+                        .hasAnyAuthority("ADMIN", "CLIENT")
+                        .requestMatchers(HttpMethod.PATCH, "/api/clients/current/cards/delete", "/api/clients/current/accounts/delete")
+                        .hasAuthority("CLIENT")
+                        .requestMatchers(HttpMethod.POST, "/api/clients/current/accounts", "/api/clients/current/cards", "/api/transactions", "/api/loans")
+                        .hasAuthority("CLIENT")
+
+                        // Autorizaciones para administradores
+                        .requestMatchers(HttpMethod.GET, "/admin/manager.html", "/admin/manager.js").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/loans/admin", "/h2-console").hasAuthority("ADMIN")
+
+                        // Restringir cualquier otra solicitud
+                        .anyRequest().denyAll()
+        );
+
         //Desabilitamos el CSRF que desactiva el TOKEN xq si no deberiamos solicitarlo y enviarlo
         // cada vez que realizamos una peticion, el filtro para poder acceder a los Headers,
         // Para headers como H2 DataBase,
