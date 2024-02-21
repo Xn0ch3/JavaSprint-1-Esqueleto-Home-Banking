@@ -6,4 +6,4 @@ EXPOSE 8080
 
 RUN gradle build
 
-ENTRYPOINT ["java", "-jar","build/libs/wire-it-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar","build/libs/XNHomeBanking-0.0.1-SNAPSHOT.jar"]
